@@ -2,6 +2,7 @@ package com.seven.rongxiaotong.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.seven.rongxiaotong.entity.TbOrder;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
@@ -12,10 +13,11 @@ import java.util.List;
 * @createDate 2023-06-29 10:57:32
 * @Entity generator.domain.TbOrder
 */
+@Mapper
 public interface TbOrderMapper extends BaseMapper<TbOrder> {
 
-    // 查询所有接口
-    List<TbOrder> selecAll();
+    // 查询所有订单的接口
+    List<TbOrder> selectAll();
 }
 
 
