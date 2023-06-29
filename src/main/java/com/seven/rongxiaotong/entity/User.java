@@ -16,6 +16,9 @@ import java.util.Date;
 public class User implements Serializable {
     /**
      * 用户名,用户使用用户名和密码进行登录
+     * todo 用户量大时,账户容易冲突✔
+     * 直接自动生成用户名
+     * 用户可以再生成后选择重新生成或者自定义
      */
     @TableId
     private String userName;
@@ -23,6 +26,7 @@ public class User implements Serializable {
     /**
      * 密码
      */
+
     private String password;
 
     /**
@@ -37,6 +41,7 @@ public class User implements Serializable {
 
     /**
      * 身份证号
+     * todo 只能由15或18位数字串组成
      */
     private String identityNum;
 
@@ -264,4 +269,21 @@ public class User implements Serializable {
     public void setRealName(String realName) {
         this.realName = realName;
     }
+
+    public User(String userName, String password, String nickName, String phone, String identityNum, String address, String role, Integer integral, Integer credit, String avatar, String realName) {
+        this.userName = userName;
+        this.password = password;
+        this.nickName = nickName;
+        this.phone = phone;
+        this.identityNum = identityNum;
+        this.address = address;
+        this.role = role;
+        this.integral = integral;
+        this.credit = credit;
+        this.avatar = avatar;
+        this.realName = realName;
+        this.createTime = new Date();
+        this.updateTime = new Date();
+    }
+
 }

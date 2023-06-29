@@ -3,7 +3,7 @@ create table user
     user_name    varchar(255) not null comment '用户名,用户使用用户名和密码进行登录'
         primary key,
     password     varchar(255) not null comment '密码',
-    nick_name    varchar(255) null comment '昵称',
+    nick_name    varchar(255) not null comment '昵称',
     phone        varchar(255) null comment '手机号',
     identity_num varchar(255) null comment '身份证号',
     address      varchar(255) null comment '地址',
@@ -15,6 +15,8 @@ create table user
     avatar       varchar(255) null comment '头像',
     real_name    varchar(255) null comment '真实姓名'
 );
+
+
 
 INSERT INTO user (user_name, password, nick_name, phone, identity_num, address, role, create_time, update_time, integral, credit, avatar, real_name)
 VALUES
