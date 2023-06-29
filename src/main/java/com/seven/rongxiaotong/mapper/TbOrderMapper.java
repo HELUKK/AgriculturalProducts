@@ -13,7 +13,6 @@ import java.util.List;
 * @createDate 2023-06-29 10:57:32
 * @Entity generator.domain.TbOrder
 */
-@Mapper
 public interface TbOrderMapper extends BaseMapper<TbOrder> {
 
     // 查询所有订单的接口

@@ -23,6 +23,7 @@ public class OrderController {
     @GetMapping("/All/{pageNum}")
     Result<PageInfo> selectAll(@PathVariable("pageNum") Integer pageNum) {
         PageInfo<TbOrder> orders = tbOrderService.selectAll(pageNum);
-        return new Result(true,20000,"查询成功",orders);
+//        System.out.println(orders.getList());
+        return new Result(true,20000,"查询成功",orders.getList());
     }
 }
