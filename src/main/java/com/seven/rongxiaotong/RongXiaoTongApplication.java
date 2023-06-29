@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class RongXiaoTongApplication {
 
     public static void main(String[] args) {
+        //wjh到此一游
         SpringApplication.run(RongXiaoTongApplication.class, args);
     }
 
