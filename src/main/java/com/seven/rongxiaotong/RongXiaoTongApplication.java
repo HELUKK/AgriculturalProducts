@@ -8,9 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 // 声明mapper包的位置
 @MapperScan("com.seven.rongxiaotong.mapper")
 public class RongXiaoTongApplication {
-
+//123
     public static void main(String[] args) {
-        //wjh到此一游
         SpringApplication.run(RongXiaoTongApplication.class, args);
     }
 
