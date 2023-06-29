@@ -245,4 +245,13 @@ public class TbOrder implements Serializable {
     public void setAddress(String address) {
         this.address = address;
     }
+
+    // 检查标题的属性
+    public boolean checkTitle(String title){
+        if (title != null && title.length() >=2 && title.length() <= 8) {
+            return true;
+        }else {
+            return false;
+        }
+    }
 }

@@ -27,7 +27,7 @@ public class UserController {
     @Resource
     private UserService userService;
 
-    @PostMapping("/regiter")
+    @PostMapping("/register")
     public Result<String> userRegister(@RequestBody UserRegisterRequest userRegisterRequest){
         if(userRegisterRequest == null){
             return new Result(false,ERROR,"请求为空");
