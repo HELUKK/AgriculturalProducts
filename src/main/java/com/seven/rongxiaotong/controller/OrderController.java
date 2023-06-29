@@ -11,18 +11,20 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import javax.swing.plaf.nimbus.State;
 
 @RestController
 @RequestMapping("/order")
 public class OrderController {
 
-    @Autowired
+    @Resource
     private TbOrderService tbOrderService;
 
     @GetMapping("/All/{pageNum}")
     Result<PageInfo> selectAll(@PathVariable("pageNum") Integer pageNum) {
         PageInfo<TbOrder> orders = tbOrderService.selectAll(pageNum);
-        return new Result(true,20000,"查询成功",orders);
+//        System.out.println(orders.getList());
+        return new Result(true,20000,"查询成功",orders.getList());
     }
 }
