@@ -3,6 +3,8 @@ package com.seven.rongxiaotong.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.seven.rongxiaotong.entity.TbOrder;
 
+import java.util.List;
+
 
 /**
 * @author 86152
@@ -12,6 +14,8 @@ import com.seven.rongxiaotong.entity.TbOrder;
 */
 public interface TbOrderMapper extends BaseMapper<TbOrder> {
 
+    // 查询所有接口
+    List<TbOrder> selecAll();
 }
 
 

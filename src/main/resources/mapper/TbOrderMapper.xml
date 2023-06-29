@@ -25,4 +25,23 @@
         picture,own_name,cooperation_name,
         create_time,update_time,address
     </sql>
+    
+    <select id="selectAll"
+            resultType="com.seven.rongxiaotong.entity.TbOrder">
+        SELECT
+               order_id,
+               title,
+               price,
+               order_statu,
+               type,
+               picture,
+               own_name,
+               cooperation_name,
+               create_time,
+               update_time,
+               address
+        FROM tb_order
+        ORDER BY update_time
+        DESC
+    </select>
 </mapper>

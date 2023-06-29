@@ -11,4 +11,6 @@ import com.seven.rongxiaotong.entity.TbOrder;
 */
 public interface TbOrderService extends IService<TbOrder> {
 
+    // 分页查询所有商品
+
 }
