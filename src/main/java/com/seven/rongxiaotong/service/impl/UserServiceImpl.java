@@ -1,6 +1,7 @@
 package com.seven.rongxiaotong.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.seven.rongxiaotong.mapper.UserMapper;
 import com.seven.rongxiaotong.entity.User;
@@ -72,7 +73,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("user_name",userName);
         long count = userMapper.selectCount(queryWrapper);
-        System.out.println(count);
+//        System.out.println(count);
         while (count > 0){
             userName = generateUserName();
             count = userMapper.selectCount(queryWrapper);
@@ -108,7 +109,48 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         }
         return userName.toString();
     }
+
+    /**
+     * 用户自定义用户名
+     * @author wjh
+     * @create 2023/6/30
+     *
+     * @param userName 用户自定义的用户名
+     * @return java.lang.String
+     **/
+//    @Override
+//    public int userRename(String userName, String nowUserName) {
+        // 检查新用户名是否已存在
+//        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+//        queryWrapper.eq("user_name", nowUserName);
+//        long count = userMapper.selectCount(queryWrapper);
+//        if (count == 0) {
+//            // 检查原用户名是否存在
+//            queryWrapper = new QueryWrapper<>();
+//            queryWrapper.eq("user_name", userName);
+//            User existingUser = userMapper.selectOne(queryWrapper);
+//            if (existingUser != null) {
+                // 更新用户名
+//                UpdateWrapper<User> updateWrapper = new UpdateWrapper<>();
+//                updateWrapper.eq("user_name", userName);
+//                User user = new User();
+//                user.setUserName(nowUserName);
+//                int rows = userMapper.update(user, updateWrapper);
+//                existingUser.setUserName(nowUserName);
+//                this.save(existingUser);
+//                System.out.println("更新成功：" + "更新"  + "条数据");
+//                return 1;
+//            } else {
+//                System.out.println("原用户名不存在");
+//                return 0;
+//            }
+//        } else {
+//            System.out.println("新用户名已存在");
+//            return 0;
+//        }
+//    }
 }
+
 
 
 

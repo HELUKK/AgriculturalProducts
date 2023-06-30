@@ -4,9 +4,7 @@ import com.seven.rongxiaotong.common.Result;
 import com.seven.rongxiaotong.entity.request.UserRegisterRequest;
 import com.seven.rongxiaotong.service.UserService;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -29,9 +27,6 @@ public class UserController {
      * 用户注册
      * @author wjh
      * @create 2023/6/30
-     *
-     * @param userRegisterRequest 注册需求类
-     * @return com.seven.rongxiaotong.common.Result<java.lang.String>
      **/
     @PostMapping("/register")
     public Result<String> userRegister(UserRegisterRequest userRegisterRequest){
@@ -63,12 +58,16 @@ public class UserController {
      * 用户自定义用户名
      * @author wjh
      * @create 2023/6/30
-     *
-     * @param userName 用户自定义用户名
-     * @return com.seven.rongxiaotong.common.Result<java.lang.String>
      **/
-    public Result<String> userRegister(String userName){
-
-        return null;
-    }
+//    @PostMapping ("/rename")
+//    public Result<String> userRename(String userName,String nowUserName){
+//        //用户名是否重复 0 -- 重复   1 -- 没重复
+//        System.out.println("当前用户:"+userName+";修改后用户:"+nowUserName);
+//        int flag = userService.userRename(userName,nowUserName);
+//        if(flag == 1){
+//            return new Result(true,OK,"您的用户名已成功修改");
+//        }else{
+//            return new Result(false,ERROR,"该用户名已存在");
+//        }
+//    }
 }
