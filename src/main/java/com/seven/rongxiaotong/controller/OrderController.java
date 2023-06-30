@@ -36,4 +36,12 @@ public class OrderController {
 
         return new Result<PageInfo>(true,StatusCode.OK,"查询成功",orders);
     }
+
+    @GetMapping("/searchAllByKeys/{keys}/{pageNum}")
+    Result<PageInfo> selectAllByKeys(@PathVariable("keys") String keys,@PathVariable("pageNum") Integer pageNum) {
+
+        PageInfo<TbOrder> orders = tbOrderService.selectAllByKeys(pageNum,keys);
+
+        return new Result<PageInfo>(true,StatusCode.OK,"查询成功",orders);
+    }
 }

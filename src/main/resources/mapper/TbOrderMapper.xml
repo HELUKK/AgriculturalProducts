@@ -162,4 +162,24 @@
             </if>
         </where>
     </select>
+
+<!--    条件查询所有商品-->
+    <select id="selectByKeys"
+            parameterType="com.seven.rongxiaotong.entity.TbOrder"
+            resultType="com.seven.rongxiaotong.entity.TbOrder">
+        select
+        <include refid="Base_Column_List" />
+        from tb_order
+        <where>
+            <if test="type != null">
+                and type = #{type,jdbcType=VARCHAR}
+            </if>
+            <if test="content != null">
+                and content like CONCAT('%',#{content,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="ownName != null">
+                and ownName = #{ownName,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
 </mapper>

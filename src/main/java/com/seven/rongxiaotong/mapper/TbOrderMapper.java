@@ -20,6 +20,9 @@ public interface TbOrderMapper extends BaseMapper<TbOrder> {
 
     // 分页查询所有商品货源
     List<TbOrder> selectByExample(TbOrder order);
+
+    // 条件查询所有商品
+    List<TbOrder> selectByKeys(TbOrder order);
 }
 
 
