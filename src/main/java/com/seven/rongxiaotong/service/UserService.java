@@ -2,6 +2,7 @@ package com.seven.rongxiaotong.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.seven.rongxiaotong.entity.User;
+import com.seven.rongxiaotong.entity.request.UserRegisterRequest;
 
 /**
  * @author wenjh
@@ -9,7 +10,8 @@ import com.seven.rongxiaotong.entity.User;
  * @createDate 2023-06-28 14:54:02
  */
 public interface UserService extends IService<User> {
-//    String userRegister(String password,String nickName,String role);
+
+    String userRegister(String password,String nickName,String role);
 
     User selectByUserName(String username);
 }
