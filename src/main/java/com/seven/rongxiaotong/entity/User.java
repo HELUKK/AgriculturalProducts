@@ -196,8 +196,8 @@ public class User implements Serializable {
     /**
      * 创建时间
      */
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    public void setCreateTime() {
+        this.createTime = new Date();
     }
 
     /**
@@ -210,8 +210,8 @@ public class User implements Serializable {
     /**
      * 更新时间
      */
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
+    public void setUpdateTime() {
+        this.updateTime  = new Date();
     }
 
     /**
@@ -268,6 +268,9 @@ public class User implements Serializable {
      */
     public void setRealName(String realName) {
         this.realName = realName;
+    }
+
+    public User() {
     }
 
     public User(String userName, String password, String nickName, String phone, String identityNum, String address, String role, Integer integral, Integer credit, String avatar, String realName) {

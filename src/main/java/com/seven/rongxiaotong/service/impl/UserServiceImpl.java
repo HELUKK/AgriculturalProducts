@@ -6,6 +6,7 @@ import com.seven.rongxiaotong.mapper.UserMapper;
 import com.seven.rongxiaotong.entity.User;
 import com.seven.rongxiaotong.service.UserService;
 import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
 
 import javax.annotation.Resource;
 import java.util.Random;
@@ -75,6 +76,21 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         while (count > 0){
             userName = generateUserName();
             count = userMapper.selectCount(queryWrapper);
+        }
+
+        //密码加密
+        String encryptPassword = DigestUtils.md5DigestAsHex((SALT + password).getBytes());
+        //插入数据到数据库
+        User user = new User();
+        user.setUserName(userName);
+        user.setPassword(encryptPassword);
+        user.setRole(role);
+        user.setNickName(nickName);
+        user.setCreateTime();
+        user.setUpdateTime();
+        boolean saveResult = this.save(user);
+        if(!saveResult){
+            return "2";
         }
         return userName;
     }

@@ -5,7 +5,6 @@ import com.seven.rongxiaotong.entity.request.UserRegisterRequest;
 import com.seven.rongxiaotong.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,6 +25,14 @@ public class UserController {
     @Resource
     private UserService userService;
 
+    /**
+     * 用户注册
+     * @author wjh
+     * @create 2023/6/30
+     *
+     * @param userRegisterRequest 注册需求类
+     * @return com.seven.rongxiaotong.common.Result<java.lang.String>
+     **/
     @PostMapping("/register")
     public Result<String> userRegister(UserRegisterRequest userRegisterRequest){
         if(userRegisterRequest == null){
@@ -44,9 +51,24 @@ public class UserController {
                 return new Result(false,ERROR,"密码：以字母开头，长度在6-18之间，只能包含英文字符、数字和下划线");
             } else if(result.equals("1")){
                 return new Result(false,ERROR,"未选择你的角色");
+            } else if(result.equals("2")){
+                return new Result(false,ERROR,"注册失败,请重新注册");
             }
         }
         String message = "恭喜你，注册成功,您的账号是:"+result;
         return new Result(true,OK,message,result);
+    }
+
+    /**
+     * 用户自定义用户名
+     * @author wjh
+     * @create 2023/6/30
+     *
+     * @param userName 用户自定义用户名
+     * @return com.seven.rongxiaotong.common.Result<java.lang.String>
+     **/
+    public Result<String> userRegister(String userName){
+
+        return null;
     }
 }
