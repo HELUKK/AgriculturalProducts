@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component
-public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
+public class   JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     @Resource
     private UserDetailsService userDetailsService;
     @Autowired
