@@ -10,7 +10,7 @@ import com.seven.rongxiaotong.entity.User;
 * @Entity com.wjh.agriculturalproducts.model.User
 */
 public interface UserMapper extends BaseMapper<User> {
-
+    User selectByUserName(String userName);
 }
 
 

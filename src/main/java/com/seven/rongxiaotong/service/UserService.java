@@ -21,4 +21,6 @@ public interface UserService extends IService<User> {
      * @return String
      **/
     String userRegister(String password,String nickName,String role);
+
+    User selectByUserName(String username);
 }

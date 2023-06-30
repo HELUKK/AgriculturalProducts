@@ -27,4 +27,7 @@ public interface TbOrderService extends IService<TbOrder> {
     // 按id查询商品（id）
     TbOrder selectById(Integer id);
 
+    // 查询所有商品的货源 （根据登陆者权限判定）
+
+
 }

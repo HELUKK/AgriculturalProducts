@@ -69,6 +69,9 @@ public class TbOrderServiceImpl extends ServiceImpl<TbOrderMapper, TbOrder>
         return order;
     }
 
+    // 查询所有商品的货源 （根据登陆者权限判定）
+
+
 
 }
 

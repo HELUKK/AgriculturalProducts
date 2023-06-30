@@ -27,4 +27,15 @@
         integral,credit,avatar,
         real_name
     </sql>
+
+    <select id="selectByUserName"
+            parameterType="string"
+            resultType="com.seven.rongxiaotong.entity.User">
+        select
+        <include refid="Base_Column_List" />
+        from user
+        <where>
+            user_name = #{userName,jdbcType=VARCHAR}
+        </where>
+    </select>
 </mapper>

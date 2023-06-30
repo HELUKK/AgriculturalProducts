@@ -95,6 +95,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         return userName;
     }
 
+    @Override
+    public User selectByUserName(String username) {
+        return null;
+    }
+
     public static String generateUserName(){
         //生成账号
         Random random = new Random();

@@ -1,7 +1,7 @@
 技术栈：
     springboot，mybatis-plus，mysql
 插件：
-    mybatisx，pagehelper
+    mybatisx，pagehelper,lombok快速添加数据，JWT安全管理，spring security安全保证
 
 
 -----------------
