@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.regex.Pattern;
 
 /**
  * 
@@ -247,8 +248,36 @@ public class TbOrder implements Serializable {
     }
 
     // 检查标题的属性
+    // 不为空 长度在2-8之间
     public boolean checkTitle(String title){
         if (title != null && title.length() >=2 && title.length() <= 8) {
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    // 检查价格属性
+    // 不为空 数字组成 最多两位小数
+    public boolean checkPrice(BigDecimal price){
+        if (price == null){
+            return false;
+        }else {
+            String source = price.toString();
+            Pattern pattern = Pattern.compile("^[+]?([0-9]+(.[0-9]{1,2})?)$");
+            if (pattern.matcher(source).matches()) {
+                return true;
+            }else {
+                return false;
+            }
+        }
+
+    }
+
+    // 检查内容属性
+    //  不为空 长度在10-150之间
+    public  boolean checkContent(String content) {
+        if (content != null && content.length() >= 10 && content.length() <= 150) {
             return true;
         }else {
             return false;

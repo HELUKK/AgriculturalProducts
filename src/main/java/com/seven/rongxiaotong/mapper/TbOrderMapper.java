@@ -17,6 +17,9 @@ public interface TbOrderMapper extends BaseMapper<TbOrder> {
 
     // 查询所有订单的接口
     List<TbOrder> selectAll();
+
+    // 分页查询所有商品货源
+    List<TbOrder> selectByExample(TbOrder order);
 }
 
 

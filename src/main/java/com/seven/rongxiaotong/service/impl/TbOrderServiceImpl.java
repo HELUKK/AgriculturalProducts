@@ -36,6 +36,17 @@ public class TbOrderServiceImpl extends ServiceImpl<TbOrderMapper, TbOrder>
 //        System.out.println("Service实现类被调用"+orderPageInfo.getList());
         return orderPageInfo;
     }
+
+    @Override
+    public PageInfo<TbOrder> selectAllGoods(Integer pageNum) {
+        TbOrder order = new TbOrder();
+        order.setType("goods");
+        PageHelper.startPage(1,20);
+        List<TbOrder> goods = tbOrderMapper.selectByExample(order);
+        PageInfo<TbOrder> orderPageInfo = new PageInfo<>(goods);
+
+        return orderPageInfo;
+    }
 }
 
 

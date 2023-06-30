@@ -8,8 +8,9 @@
 1.mybatisx真的很方便
 	要对一个新的表进行操作时使用mybatisx自动生成entity，mapper，service下的接口与实现类，resource下面的mapper.xml
 2.数据请求的顺序：controller =》 service =》 resource.xxxMapper =》 数据库
-3.编写的顺序：mapper接口中的抽象方法 =》
+3.编写的顺序：
 	service接口中的抽象方法 =》
+	mapper接口中的抽象方法 =》
 	根据抽象方法去resource下的mapper写sql语句 =》
 	service实现类中注入mapper的接口类，覆写service中的抽象方法，（启动分页查询），调用抽象类的方法获取数据库中的数据，（对数据封装）
 	controller层写@RestController，注入service层接口，调用

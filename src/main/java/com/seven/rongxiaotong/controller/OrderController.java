@@ -2,6 +2,7 @@ package com.seven.rongxiaotong.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.seven.rongxiaotong.common.Result;
+import com.seven.rongxiaotong.common.StatusCode;
 import com.seven.rongxiaotong.entity.TbOrder;
 import com.seven.rongxiaotong.service.TbOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,14 @@ public class OrderController {
     Result<PageInfo> selectAll(@PathVariable("pageNum") Integer pageNum) {
         PageInfo<TbOrder> orders = tbOrderService.selectAll(pageNum);
 //        System.out.println(orders.getList());
-        return new Result(true,20000,"查询成功",orders.getList());
+        return new Result<PageInfo>(true, StatusCode.OK,"查询成功",orders);
+    }
+
+    @GetMapping("/goods/{pageNum}")
+    Result<PageInfo> selectAllGoods(@PathVariable("pageNum") Integer pageNum) {
+
+        PageInfo<TbOrder> orders = tbOrderService.selectAllGoods(pageNum);
+
+        return new Result<PageInfo>(true,StatusCode.OK,"查询成功",orders);
     }
 }
