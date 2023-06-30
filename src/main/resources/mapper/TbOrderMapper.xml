@@ -182,4 +182,16 @@
             </if>
         </where>
     </select>
+
+<!--    按id查询商品-->
+    <select id="selectById"
+            parameterType="integer"
+            resultType="com.seven.rongxiaotong.entity.TbOrder">
+        select
+        <include refid="Base_Column_List" />
+        from tb_order
+        <where>
+            order_id = #{orderId,jdbcType=INTEGER}
+        </where>
+    </select>
 </mapper>

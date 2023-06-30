@@ -18,9 +18,13 @@ public interface TbOrderService extends IService<TbOrder> {
     // 分页查询所有商品
     PageInfo<TbOrder> selectAll(Integer pageNum);
 
-    // 分页查询所有商品货源
+    // 查询所有商品货源（type = goods）
     PageInfo<TbOrder> selectAllGoods(Integer pageNum);
 
-    // 条件查询所有商品
+    // 条件查询所有商品（内容：content）
     PageInfo<TbOrder> selectAllByKeys(Integer pageNum,String keys);
+
+    // 按id查询商品（id）
+    TbOrder selectById(Integer id);
+
 }
