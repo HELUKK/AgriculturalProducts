@@ -3,7 +3,6 @@ package com.seven.rongxiaotong.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.github.pagehelper.PageInfo;
 import com.seven.rongxiaotong.entity.TbOrder;
-import org.springframework.stereotype.Service;
 
 
 /**
@@ -26,5 +25,8 @@ public interface TbOrderService extends IService<TbOrder> {
 
     // 按id查询商品（id）
     TbOrder selectById(Integer id);
+
+    // 查询所有商品的货源 （根据登陆者权限判定）
+
 
 }

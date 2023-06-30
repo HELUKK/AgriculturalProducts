@@ -22,5 +22,5 @@ public interface UserService extends IService<User> {
      **/
     String userRegister(String password,String nickName,String role);
 
-//    int userRename(String userName,String nowUserName);
+    User selectByUserName(String username);
 }

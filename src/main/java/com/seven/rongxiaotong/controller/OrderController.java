@@ -5,15 +5,12 @@ import com.seven.rongxiaotong.common.Result;
 import com.seven.rongxiaotong.common.StatusCode;
 import com.seven.rongxiaotong.entity.TbOrder;
 import com.seven.rongxiaotong.service.TbOrderService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import javax.swing.plaf.nimbus.State;
 
 @RestController
 @RequestMapping("/order")

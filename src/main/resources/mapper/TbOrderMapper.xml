@@ -185,7 +185,7 @@
 
 <!--    按id查询商品-->
     <select id="selectById"
-            parameterType="integer"
+            parameterType="string"
             resultType="com.seven.rongxiaotong.entity.TbOrder">
         select
         <include refid="Base_Column_List" />
