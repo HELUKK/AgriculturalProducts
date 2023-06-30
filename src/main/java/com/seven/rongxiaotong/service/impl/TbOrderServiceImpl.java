@@ -7,8 +7,6 @@ import com.github.pagehelper.PageInfo;
 import com.seven.rongxiaotong.entity.TbOrder;
 import com.seven.rongxiaotong.mapper.TbOrderMapper;
 import com.seven.rongxiaotong.service.TbOrderService;
-import org.apache.ibatis.annotations.Results;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
