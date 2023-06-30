@@ -1,4 +1,4 @@
-package com.seven.rongxiaotong.security.service;
+package com.seven.rongxiaotong.security.service.impl;
 
 import com.seven.rongxiaotong.entity.User;
 import com.seven.rongxiaotong.security.entity.JwtUser;
@@ -11,7 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserDetailServiceImpl implements UserDetailsService {
+public class JwtUserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private UserService userService;
 

@@ -1,310 +1,134 @@
 package com.seven.rongxiaotong.entity;
 
+import lombok.Data;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.data.annotation.Id;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
-
-import java.io.Serializable;
+import javax.validation.constraints.Pattern;
 import java.util.Date;
 
-/**
- * 
- * @TableName user
- */
-@TableName(value ="user")
-public class User implements Serializable {
-    /**
-     * 用户名,用户使用用户名和密码进行登录
-     * todo 用户量大时,账户容易冲突✔
-     * 直接自动生成用户名
-     * 用户可以再生成后选择重新生成或者自定义
-     */
-    @TableId
+@Data
+public class User {
+    @Id
+//    @Column(name = "userName")
+//    @NotBlank(message = "账号不能为空")
+    @Pattern(regexp = "^[a-zA-Z][A-Za-z0-9]{2,9}+$",message = "账号必须以字母开头，长度在3-10之间，只能包含英文字符、数字")
     private String userName;
-
-    /**
-     * 密码
-     */
-
+    //    @NotBlank(message = "密码不能为空")
+    @Pattern(  regexp = "^[a-zA-Z][a-zA-Z0-9_]{5,17}$",message = "密码必须以字母开头，长度在6-18之间，只能包含英文字符、数字和下划线")
     private String password;
-
-    /**
-     * 昵称
-     */
+    @NotBlank(message = "昵称不能为空")
     private String nickName;
 
-    /**
-     * 手机号
-     */
+    private String realName;
+    @Pattern(regexp = "^1[3|4|5|7|8][0-9]{9}$",message = "请输入正确的手机号")
     private String phone;
-
-    /**
-     * 身份证号
-     * todo 只能由15或18位数字串组成
-     */
+    @Pattern(regexp = "^\\d{15}|\\d{18}$",message = "请输入15或18位有效身份证号")
     private String identityNum;
-
-    /**
-     * 地址
-     */
+    @Length(min = 2,max = 30,message = "请输入的地址长度在2-30之间")
     private String address;
-
-    /**
-     * 角色
-     */
+    @Pattern(regexp = "^(user|expert|admin)$",message = "设置角色请输入 user,expert,admin 等角色")
     private String role;
-
-    /**
-     * 创建时间
-     */
     private Date createTime;
-
-    /**
-     * 更新时间
-     */
     private Date updateTime;
-
-    /**
-     * 积分
-     */
-    private Integer integral;
-
-    /**
-     * 信誉
-     */
-    private Integer credit;
-
-    /**
-     * 头像
-     */
+    private int integral;
+    private int credit;
     private String avatar;
 
-    /**
-     * 真实姓名
-     */
-    private String realName;
-
-    @TableField(exist = false)
-    private static final long serialVersionUID = 1L;
-
-    /**
-     * 用户名,用户使用用户名和密码进行登录
-     */
     public String getUserName() {
         return userName;
     }
 
-    /**
-     * 用户名,用户使用用户名和密码进行登录
-     */
     public void setUserName(String userName) {
         this.userName = userName;
     }
 
-    /**
-     * 密码
-     */
     public String getPassword() {
         return password;
     }
 
-    /**
-     * 密码
-     */
     public void setPassword(String password) {
         this.password = password;
     }
 
-    /**
-     * 昵称
-     */
     public String getNickName() {
         return nickName;
     }
 
-    /**
-     * 昵称
-     */
     public void setNickName(String nickName) {
         this.nickName = nickName;
     }
 
-    /**
-     * 手机号
-     */
     public String getPhone() {
         return phone;
     }
 
-    /**
-     * 手机号
-     */
     public void setPhone(String phone) {
         this.phone = phone;
     }
 
-    /**
-     * 身份证号
-     */
     public String getIdentityNum() {
         return identityNum;
     }
 
-    /**
-     * 身份证号
-     */
     public void setIdentityNum(String identityNum) {
         this.identityNum = identityNum;
     }
 
-    /**
-     * 地址
-     */
     public String getAddress() {
         return address;
     }
 
-    /**
-     * 地址
-     */
     public void setAddress(String address) {
         this.address = address;
     }
 
-    /**
-     * 角色
-     */
     public String getRole() {
         return role;
     }
 
-    /**
-     * 角色
-     */
     public void setRole(String role) {
         this.role = role;
     }
 
-    /**
-     * 创建时间
-     */
     public Date getCreateTime() {
         return createTime;
     }
 
-    /**
-     * 创建时间
-     */
-    public void setCreateTime() {
-        this.createTime = new Date();
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
-    /**
-     * 更新时间
-     */
     public Date getUpdateTime() {
         return updateTime;
     }
 
-    /**
-     * 更新时间
-     */
-    public void setUpdateTime() {
-        this.updateTime  = new Date();
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 
-    /**
-     * 积分
-     */
     public Integer getIntegral() {
         return integral;
     }
 
-    /**
-     * 积分
-     */
     public void setIntegral(Integer integral) {
         this.integral = integral;
     }
 
-    /**
-     * 信誉
-     */
     public Integer getCredit() {
         return credit;
     }
 
-    /**
-     * 信誉
-     */
     public void setCredit(Integer credit) {
         this.credit = credit;
     }
 
-    /**
-     * 头像
-     */
     public String getAvatar() {
         return avatar;
     }
 
-    /**
-     * 头像
-     */
     public void setAvatar(String avatar) {
         this.avatar = avatar;
-    }
-
-    /**
-     * 真实姓名
-     */
-    public String getRealName() {
-        return realName;
-    }
-
-    /**
-     * 真实姓名
-     */
-    public void setRealName(String realName) {
-        this.realName = realName;
-    }
-
-    public User() {
-    }
-
-    public User(String userName, String password, String nickName, String phone, String identityNum, String address, String role, Integer integral, Integer credit, String avatar, String realName) {
-        this.userName = userName;
-        this.password = password;
-        this.nickName = nickName;
-        this.phone = phone;
-        this.identityNum = identityNum;
-        this.address = address;
-        this.role = role;
-        this.integral = integral;
-        this.credit = credit;
-        this.avatar = avatar;
-        this.realName = realName;
-        this.createTime = new Date();
-        this.updateTime = new Date();
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "userName='" + userName + '\'' +
-                ", password='" + password + '\'' +
-                ", nickName='" + nickName + '\'' +
-                ", phone='" + phone + '\'' +
-                ", identityNum='" + identityNum + '\'' +
-                ", address='" + address + '\'' +
-                ", role='" + role + '\'' +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
-                ", integral=" + integral +
-                ", credit=" + credit +
-                ", avatar='" + avatar + '\'' +
-                ", realName='" + realName + '\'' +
-                '}';
     }
 }

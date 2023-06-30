@@ -17,15 +17,14 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
 
-        if(request.getContentType().equals(MediaType.APPLICATION_JSON_UTF8_VALUE)
-                ||request.getContentType().equals(MediaType.APPLICATION_JSON_VALUE)){
+        if(request.getContentType().equals(MediaType.APPLICATION_JSON_UTF8_VALUE) ||request.getContentType().equals(MediaType.APPLICATION_JSON_VALUE)){
             //use jackson to deserialize json
             ObjectMapper mapper = new ObjectMapper();
             UsernamePasswordAuthenticationToken authRequest = null;
             try (InputStream is = request.getInputStream()){
                 AuthenticationBean authenticationBean = mapper.readValue(is, AuthenticationBean.class);
                 authRequest = new UsernamePasswordAuthenticationToken(
-                        authenticationBean.getUsername(), authenticationBean.getPassword());
+                        authenticationBean.getUserName(), authenticationBean.getPassword());
             }catch (IOException e) {
                 e.printStackTrace();
                 authRequest = new UsernamePasswordAuthenticationToken(
