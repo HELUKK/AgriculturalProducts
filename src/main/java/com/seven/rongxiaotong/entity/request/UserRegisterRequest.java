@@ -34,4 +34,13 @@ public class UserRegisterRequest {
     public void setRole(String role) {
         this.role = role;
     }
+
+    @Override
+    public String toString() {
+        return "UserRegisterRequest{" +
+                "password='" + password + '\'' +
+                ", nickName='" + nickName + '\'' +
+                ", role='" + role + '\'' +
+                '}';
+    }
 }

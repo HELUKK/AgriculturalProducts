@@ -38,7 +38,7 @@ public class TbOrderServiceImpl extends ServiceImpl<TbOrderMapper, TbOrder>
         return orderPageInfo;
     }
 
-    // 查询所有商品货源
+    // 查询所有商品货源（type = goods）
     @Override
     public PageInfo<TbOrder> selectAllGoods(Integer pageNum) {
         TbOrder order = new TbOrder();
@@ -50,7 +50,7 @@ public class TbOrderServiceImpl extends ServiceImpl<TbOrderMapper, TbOrder>
         return orderPageInfo;
     }
 
-    // 按条件查询商品
+    // 按条件查询商品（内容：content）
     @Override
     public PageInfo<TbOrder> selectAllByKeys(Integer pageNum,String keys) {
         TbOrder order = new TbOrder();
@@ -59,6 +59,14 @@ public class TbOrderServiceImpl extends ServiceImpl<TbOrderMapper, TbOrder>
         List<TbOrder> goods = tbOrderMapper.selectByKeys(order);
         PageInfo<TbOrder> orderPageInfo = new PageInfo<>(goods);
         return orderPageInfo;
+    }
+
+    // 按id搜索商品（id）
+    @Override
+    public TbOrder selectById(Integer id) {
+        TbOrder order = tbOrderMapper.selectById(id);
+
+        return order;
     }
 
 
