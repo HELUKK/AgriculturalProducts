@@ -69,8 +69,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         String userName = generateUserName();
         //账户不能重复
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("userName",userName);
+        queryWrapper.eq("user_name",userName);
         long count = userMapper.selectCount(queryWrapper);
+        System.out.println(count);
         while (count > 0){
             userName = generateUserName();
             count = userMapper.selectCount(queryWrapper);
