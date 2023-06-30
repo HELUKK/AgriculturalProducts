@@ -97,7 +97,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
 
     @Override
     public User selectByUserName(String username) {
-        return null;
+        User user = userMapper.selectByUserName(username);
+        return user;
     }
 
     public static String generateUserName(){
