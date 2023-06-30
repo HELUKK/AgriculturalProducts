@@ -16,7 +16,8 @@ import static com.seven.rongxiaotong.common.StatusCode.OK;
  *
  * @author wjh
  */
-
+//跨域
+@CrossOrigin
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -29,7 +30,7 @@ public class UserController {
      * @create 2023/6/30
      **/
     @PostMapping("/register")
-    public Result<String> userRegister(UserRegisterRequest userRegisterRequest){
+    public Result<String> userRegister(@RequestBody UserRegisterRequest userRegisterRequest){
         if(userRegisterRequest == null){
             return new Result(false,ERROR,"请求为空");
         }
