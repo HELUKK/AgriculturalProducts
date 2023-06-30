@@ -4,7 +4,6 @@ import com.seven.rongxiaotong.common.Result;
 import com.seven.rongxiaotong.entity.request.UserRegisterRequest;
 import com.seven.rongxiaotong.service.UserService;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.message.Message;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +27,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/register")
-    public Result<String> userRegister(@RequestBody UserRegisterRequest userRegisterRequest){
+    public Result<String> userRegister(UserRegisterRequest userRegisterRequest){
         if(userRegisterRequest == null){
             return new Result(false,ERROR,"请求为空");
         }
