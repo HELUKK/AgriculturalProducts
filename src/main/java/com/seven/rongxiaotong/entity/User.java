@@ -289,4 +289,22 @@ public class User implements Serializable {
         this.updateTime = new Date();
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "userName='" + userName + '\'' +
+                ", password='" + password + '\'' +
+                ", nickName='" + nickName + '\'' +
+                ", phone='" + phone + '\'' +
+                ", identityNum='" + identityNum + '\'' +
+                ", address='" + address + '\'' +
+                ", role='" + role + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", integral=" + integral +
+                ", credit=" + credit +
+                ", avatar='" + avatar + '\'' +
+                ", realName='" + realName + '\'' +
+                '}';
+    }
 }
