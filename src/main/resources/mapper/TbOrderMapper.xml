@@ -278,6 +278,13 @@
         </trim>
     </insert>
 
+<!--    删除商品-->
+    <delete id="deleteOrder"
+            parameterType="integer">
+        delete from tb_order
+        where order_id = #{orderId,jdbcType=INTEGER}
+    </delete>
+
 
 <!--    个人商品操作-->
 </mapper>

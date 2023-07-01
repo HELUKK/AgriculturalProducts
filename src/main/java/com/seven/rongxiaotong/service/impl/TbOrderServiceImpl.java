@@ -109,12 +109,16 @@ public class TbOrderServiceImpl extends ServiceImpl<TbOrderMapper, TbOrder>
     // 个人商品操作
 
     // 添加商品
-
     @Override
     public void add(TbOrder order) {
         tbOrderMapper.insertOrder(order);
     }
 
+    // 删除商品
+    @Override
+    public void delete(Integer id) {
+        tbOrderMapper.deleteOrder(id);
+    }
 
     // /个人商品操作
 

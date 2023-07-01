@@ -96,6 +96,13 @@ public class OrderController {
         return new Result(true, StatusCode.OK, "添加成功",null);
     }
 
+    // 删除商品
+    @DeleteMapping("/{id}")
+    public Result deleteOrder(@PathVariable("id") Integer id) {
+        tbOrderService.delete(id);
+        return new Result(true, StatusCode.OK, "删除成功");
+    }
+
 
 
     // /个人商品操作
