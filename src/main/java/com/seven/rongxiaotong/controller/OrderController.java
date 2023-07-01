@@ -125,7 +125,25 @@ public class OrderController {
         return new Result(true, StatusCode.OK, "修改成功",null);
     }
 
+    // 根据用户名+类型查询商品
+    @GetMapping("/search/{type}/{pageNum}")
+    public Result<PageInfo> selectByType(@PathVariable("type") String type, @PathVariable("pageNum") Integer pageNum) {
+        PageInfo<TbOrder> orders = tbOrderService.selectByType(pageNum,type);
+        return new Result<PageInfo>(true, StatusCode.OK, "查询成功", orders);
+    }
 
+    //分页条件搜索商品（货源）商品
+    @GetMapping("/searchMyGoodsByKeys/{keys}/{pageNum}")
+    public Result<PageInfo> searchMyGoodsByKeys(@PathVariable("keys") String keys,@PathVariable("pageNum") Integer pageNum) {
+
+        UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String name = principal.getUsername();
+
+//        String name = "发布者10";
+
+        PageInfo<TbOrder> orders = tbOrderService.selectGoodsByKeys(pageNum,keys,name);
+        return new Result<PageInfo>(true, StatusCode.OK, "查询成功", orders);
+    }
 
     // /个人商品操作
 }

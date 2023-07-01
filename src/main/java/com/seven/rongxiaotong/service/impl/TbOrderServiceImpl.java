@@ -79,6 +79,7 @@ public class TbOrderServiceImpl extends ServiceImpl<TbOrderMapper, TbOrder>
         //创建Order实例
         TbOrder order = new TbOrder();
         order.setType("goods");
+        // keys存到content里面
         order.setContent(keys);
 
         try {
@@ -100,7 +101,7 @@ public class TbOrderServiceImpl extends ServiceImpl<TbOrderMapper, TbOrder>
         }
 
         //分页
-        PageHelper.startPage(pageNum, 20);
+        PageHelper.startPage(pageNum, pageSize);
         //查询
         List<TbOrder> orders = tbOrderMapper.selectByKeys(order);
         PageInfo<TbOrder> orderPageInfo = new PageInfo<>(orders);
@@ -126,6 +127,35 @@ public class TbOrderServiceImpl extends ServiceImpl<TbOrderMapper, TbOrder>
     @Override
     public void update(TbOrder order) {
         tbOrderMapper.updateOrder(order);
+    }
+
+    // 以用户名+类型的方式搜索
+    @Override
+    public PageInfo<TbOrder> selectByType(Integer pageNum, String type) {
+        //获取登陆的用户名
+        UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String name = principal.getUsername();
+        TbOrder order = new TbOrder();
+        Iterator it = principal.getAuthorities().iterator(); // 获得一个迭代子
+        while(it.hasNext()) {
+            Object obj = it.next(); // 得到下一个元素
+            String role = obj.toString();
+            if(!role.equals("admin"))
+            {
+                order.setOwnName(name);
+                break;
+            }
+        }
+
+//        TbOrder order = new TbOrder();
+//        order.setOwnName("voiceofmyheart");
+
+        order.setType(type);
+
+        PageHelper.startPage(pageNum, pageSize);
+        List<TbOrder> orders = tbOrderMapper.selectByExample(order);
+        PageInfo<TbOrder> orderPageInfo = new PageInfo<>(orders);
+        return orderPageInfo;
     }
 
 
