@@ -40,4 +40,92 @@
         from tb_knowledge
         where knowledge_id = #{id,jdbcType=INTEGER}
     </select>
+
+    <select id="selectByExample" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        <where>
+            <if test="name != null and name != ''">
+                and own_name = #{name}
+            </if>
+        </where>
+    </select>
+
+    <insert id="insertSelective" parameterType="com.seven.rongxiaotong.entity.TbKnowledge">
+        insert into tb_knowledge
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="knowledgeId != null">
+                knowlege_id,
+            </if>
+            <if test="title != null">
+                title,
+            </if>
+            <if test="content != null">
+                content,
+            </if>
+            <if test="picPath != null">
+                pic_path,
+            </if>
+            <if test="ownName != null">
+                own_name,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values(" suffix=")" suffixOverrides=",">
+            <if test="knowledgeId != null">
+                #{knowledgeId,jdbcType=INTEGER},
+            </if>
+            <if test="title != null">
+                #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="content != null">
+                #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="picPath != null">
+                #{picPath,jdbcType=VARCHAR},
+            </if>
+            <if test="ownName != null">
+                #{ownName,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIME},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.seven.rongxiaotong.entity.TbKnowledge">
+        update tb_knowledge
+        <set>
+            <if test="title != null">
+               title = #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="content != null">
+               content = #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="picPath != null">
+                pic_path = #{picPath,jdbcType=VARCHAR},
+            </if>
+            <if test="ownName != null">
+                own_name = #{ownName,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIME},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where knowledge_id = #{knowledgeId,jdcbType=INTEGER}
+    </update>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from tb_knowledge
+        where knowledge_id = #{knowledgeId,jdbcType=INTEGER}
+    </delete>
 </mapper>

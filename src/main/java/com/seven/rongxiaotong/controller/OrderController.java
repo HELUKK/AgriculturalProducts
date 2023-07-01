@@ -5,13 +5,21 @@ import com.seven.rongxiaotong.common.Result;
 import com.seven.rongxiaotong.common.StatusCode;
 import com.seven.rongxiaotong.entity.TbOrder;
 import com.seven.rongxiaotong.service.TbOrderService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
+import java.security.Principal;
+import java.util.Date;
+import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/order")
 public class OrderController {
@@ -45,10 +53,97 @@ public class OrderController {
         return new Result<PageInfo>(true,StatusCode.OK,"查询成功",orders);
     }
 
+    // 按权限查询所有商品货源
+    @GetMapping("/searchGoodsByKeys/{keys}/{pageNum}")
+    public Result<PageInfo> searchGoodsByKeys(@PathVariable("keys") String keys,@PathVariable("pageNum") Integer pageNum) {
+        PageInfo<TbOrder> orders = tbOrderService.selectGoodsByKeys(pageNum,keys,null);
+        return new Result<PageInfo>(true, StatusCode.OK, "查询成功", orders);
+    }
+
     // 按id查询商品 只查询到一个数据
     @GetMapping("/selectById/{id}")
     public Result<TbOrder> selectById (@PathVariable("id") Integer id) {
         TbOrder order = tbOrderService.selectById(id);
         return new Result<TbOrder>(true,StatusCode.OK,"查询成功",order);
     }
+
+    // 个人商品操作
+
+    // 添加商品
+//    @ApiOperation(value = "添加商品")
+    @PostMapping
+    public Result<String> add(@Valid @RequestBody TbOrder order, BindingResult bindingResult) {
+        //检查项目
+        if (bindingResult.hasErrors()) {
+            StringBuffer stringBuffer = new StringBuffer();
+            List<ObjectError> allErrors = bindingResult.getAllErrors();
+            for (ObjectError objectError : allErrors) {
+                stringBuffer.append(objectError.getDefaultMessage()).append("; ");
+            }
+            String s = stringBuffer.toString();
+            System.out.println(s);
+            return new Result<String>(false, StatusCode.ERROR, "添加失败",s);
+        }
+        //获取用户名
+        UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String name = principal.getUsername();
+//        String name = "skz";
+        order.setOwnName(name);
+        //设置时间
+        order.setCreateTime(new Date());
+        order.setUpdateTime(new Date());
+        //添加
+        tbOrderService.add(order);
+        return new Result(true, StatusCode.OK, "添加成功",null);
+    }
+
+    // 删除商品
+    @DeleteMapping("/{id}")
+    public Result deleteOrder(@PathVariable("id") Integer id) {
+        tbOrderService.delete(id);
+        return new Result(true, StatusCode.OK, "删除成功");
+    }
+
+    // 修改商品
+    @PutMapping("/{id}")
+    public Result<String> update(@Validated @RequestBody TbOrder order, BindingResult bindingResult,
+                                 @PathVariable Integer id) {
+        //检查项目
+        if (bindingResult.hasErrors()) {
+            StringBuffer stringBuffer = new StringBuffer();
+            List<ObjectError> allErrors = bindingResult.getAllErrors();
+            for (ObjectError objectError : allErrors) {
+                stringBuffer.append(objectError.getDefaultMessage()).append("; ");
+            }
+            String s = stringBuffer.toString();
+            System.out.println(s);
+            return new Result<String>(false, StatusCode.ERROR, "修改失败",s);
+        }
+        order.setUpdateTime(new Date());
+        order.setOrderId(id);
+        tbOrderService.update(order);
+        return new Result(true, StatusCode.OK, "修改成功",null);
+    }
+
+    // 根据用户名+类型查询商品
+    @GetMapping("/search/{type}/{pageNum}")
+    public Result<PageInfo> selectByType(@PathVariable("type") String type, @PathVariable("pageNum") Integer pageNum) {
+        PageInfo<TbOrder> orders = tbOrderService.selectByType(pageNum,type);
+        return new Result<PageInfo>(true, StatusCode.OK, "查询成功", orders);
+    }
+
+    //分页条件搜索商品（货源）商品
+    @GetMapping("/searchMyGoodsByKeys/{keys}/{pageNum}")
+    public Result<PageInfo> searchMyGoodsByKeys(@PathVariable("keys") String keys,@PathVariable("pageNum") Integer pageNum) {
+
+        UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String name = principal.getUsername();
+
+//        String name = "发布者10";
+
+        PageInfo<TbOrder> orders = tbOrderService.selectGoodsByKeys(pageNum,keys,name);
+        return new Result<PageInfo>(true, StatusCode.OK, "查询成功", orders);
+    }
+
+    // /个人商品操作
 }
