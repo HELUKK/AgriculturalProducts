@@ -13,4 +13,6 @@ import java.util.List;
 public interface TbDiscussService extends IService<TbDiscuss> {
     //根据知识id查询评论
     List<TbDiscuss> selectByKnowledgeId(Integer knowledgeId);
+    //添加新评论
+    void add(TbDiscuss tbDiscuss);
 }

@@ -13,7 +13,10 @@ import java.util.List;
 * @Entity com.seven.rongxiaotong.entity.TbDiscuss
 */
 public interface TbDiscussMapper extends BaseMapper<TbDiscuss> {
+    //根据知识id查找评论
     List<TbDiscuss> selectByKnowledgeId(@PathVariable("knowledgeId") Integer knowledgeId);
+    //添加新评论
+    int insertSelective(@PathVariable("discuss") TbDiscuss tbDiscuss);
 }
 
 

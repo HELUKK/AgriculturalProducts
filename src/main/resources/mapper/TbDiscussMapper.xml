@@ -22,4 +22,42 @@
         from tb_discuss
         where knowledge_id = #{knowledge_id,jdbcType=INTEGER}
     </select>
+
+    <insert id="insertSelective" parameterType="com.seven.rongxiaotong.entity.TbDiscuss">
+        insert into tb_discuss
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test=" discussId != null">
+                discuss_id,
+            </if>
+            <if test=" knowledgeId != null">
+                knowledge_id,
+            </if>
+            <if test=" ownName != null">
+                own_name,
+            </if>
+            <if test=" content != null">
+                content,
+            </if>
+            <if test=" createTime != null">
+                create_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="discussId != null">
+                #{discussId,jdbcType=INTEGER},
+            </if>
+            <if test="knowledgeId != null">
+                #{knowledgeId,jdbcType=INTEGER},
+            </if>
+            <if test="ownName != null">
+                #{ownName,jdbcType=VARCHAR},
+            </if>
+            <if test="content != null">
+                #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
 </mapper>

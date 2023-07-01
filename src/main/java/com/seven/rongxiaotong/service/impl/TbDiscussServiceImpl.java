@@ -29,6 +29,16 @@ public class TbDiscussServiceImpl extends ServiceImpl<TbDiscussMapper, TbDiscuss
     public List<TbDiscuss> selectByKnowledgeId(Integer knowledgeId) {
         return tbDiscussMapper.selectByKnowledgeId(knowledgeId);
     }
+
+    /**
+     * @description: TODO 添加评论
+     * @author: juny
+     * @date: 2023-07-01 下午4:13
+     */
+    @Override
+    public void add(TbDiscuss tbDiscuss) {
+        tbDiscussMapper.insertSelective(tbDiscuss);
+    }
 }
 
 
