@@ -178,7 +178,7 @@
                 and content like CONCAT('%',#{content,jdbcType=VARCHAR},'%')
             </if>
             <if test="ownName != null">
-                and ownName = #{ownName,jdbcType=VARCHAR}
+                and own_Name = #{ownName,jdbcType=VARCHAR}
             </if>
         </where>
     </select>
@@ -329,4 +329,9 @@
 
 
 <!--    个人商品操作-->
+
+<!--    所有需求模块实现-->
+
+
+<!--    所有需求模块实现-->
 </mapper>

@@ -146,4 +146,32 @@ public class OrderController {
     }
 
     // /个人商品操作
+
+    // 所有需求模块实现
+
+    // 查询全部商品需求
+    @GetMapping("/needs/{pageNum}")
+    public Result<PageInfo> selectAllNeeds (@PathVariable("pageNum")Integer pageNum) {
+        PageInfo<TbOrder> orders = tbOrderService.selectAllNeeds(pageNum);
+        return new Result<PageInfo>(true,StatusCode.OK,"查询成功",orders);
+    }
+
+    // 条件查询商品需求
+    @GetMapping("/selectNeedsByKeys/{keys}/{pageNum}")
+    public Result<PageInfo> selectNeedsByKeys (@PathVariable("pageNum") Integer pageNum,@PathVariable("keys") String keys) {
+        PageInfo<TbOrder> orders = tbOrderService.selectAllNeedsByKeys(pageNum,keys,null);
+        return new Result<PageInfo>(true,StatusCode.OK,"查询成功",orders);
+    }
+
+    // 所有需求模块实现
+
+    // 条件查询个人需求
+    @GetMapping("/searchMyNeedsByKeys/{keys}/{pageNum}")
+    public Result<PageInfo> searchMyNeedsByKeys (@PathVariable("pageNum") Integer pageNum,@PathVariable("keys") String keys) {
+        UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String name = principal.getUsername();
+//        String name = "发布者6";
+        PageInfo<TbOrder> orders = tbOrderService.selectNeedsByKeys(pageNum,keys,name);
+        return new Result<PageInfo>(true,StatusCode.OK,"查询成功",orders);
+    }
 }

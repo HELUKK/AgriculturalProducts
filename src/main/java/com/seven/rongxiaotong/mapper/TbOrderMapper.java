@@ -18,10 +18,10 @@ public interface TbOrderMapper extends BaseMapper<TbOrder> {
     // 查询所有订单的接口
     List<TbOrder> selectAll();
 
-    // 分页查询所有商品货源
+    // 条件查询所有商品 （根据传入的order内容）可被复用
     List<TbOrder> selectByExample(TbOrder order);
 
-    // 条件查询所有商品 （根据类型， 根据发起人，根据内容）可被复用
+    // 根据内容查询 （根据content） 可被复用（needs或goods）
     List<TbOrder> selectByKeys(TbOrder order);
 
     // 按id查询商品
@@ -38,8 +38,13 @@ public interface TbOrderMapper extends BaseMapper<TbOrder> {
     // 修改商品
     Integer updateOrder(TbOrder order);
 
-
     // /个人商品操作
+
+    // 所有需求模块实现
+
+
+
+    // 所有需求模块实现
 
 }
 

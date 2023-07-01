@@ -48,4 +48,18 @@ public interface TbOrderService extends IService<TbOrder> {
     PageInfo<TbOrder> selectByType(Integer pageNum,String type);
 
     // /个人商品操作
+
+    // 所有需求模块实现
+    // 查询全部商品需求
+    PageInfo<TbOrder> selectAllNeeds(Integer pageNum);
+
+    // 条件查询商品需求
+    PageInfo<TbOrder> selectAllNeedsByKeys(Integer pageNum,String keys,String name);
+    // 所有需求模块实现
+
+    // 个人需求管理模块
+    // 条件查询个人需求
+    PageInfo<TbOrder> selectNeedsByKeys(Integer pageNum,String keys,String name);
+
+    // 个人需求管理模块
 }
