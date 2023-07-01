@@ -1,6 +1,7 @@
 package com.seven.rongxiaotong.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.seven.rongxiaotong.mapper.UserMapper;
 import com.seven.rongxiaotong.entity.User;
@@ -105,6 +106,44 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         return user;
     }
 
+
+    /**
+     * 更新密码
+     * @author wjh
+     * @create 2023/6/30
+     *
+     * @param userName 用户名
+     * @param newPassword 用户重新设置的密码
+     * @return java.lang.String
+     **/
+    @Override
+    public int userRePassword(String userName, String newPassword) {
+        // 检查原用户名是否存在
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_name", userName);
+        long count = userMapper.selectCount(queryWrapper);
+        if(count==0){
+            System.out.println("用户不存在");
+        }
+        //1.2 校验密码：以字母开头，长度在6-18之间，只能包含英文字符、数字和下划线
+        Pattern pattern = Pattern.compile(PASSWORD);
+        if (pattern.matcher(newPassword).matches()) {
+            User user = new User();
+            user.setUserName(userName);
+            //密码加密后加入数据库
+            PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            String encryptPassword = passwordEncoder.encode(newPassword);
+            user.setPassword(encryptPassword);
+            userMapper.updateById(user);
+            System.out.println("密码更新成功");
+            return 1;
+        } else {
+            //密码不合规
+            return 0;
+        }
+
+    }
+
     public static String generateUserName(){
         //生成账号
         Random random = new Random();
@@ -119,45 +158,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         return userName.toString();
     }
 
-    /**
-     * 用户自定义用户名
-     * @author wjh
-     * @create 2023/6/30
-     *
-     * @param userName 用户自定义的用户名
-     * @return java.lang.String
-     **/
-//    @Override
-//    public int userRename(String userName, String nowUserName) {
-    // 检查新用户名是否已存在
-//        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-//        queryWrapper.eq("user_name", nowUserName);
-//        long count = userMapper.selectCount(queryWrapper);
-//        if (count == 0) {
-//            // 检查原用户名是否存在
-//            queryWrapper = new QueryWrapper<>();
-//            queryWrapper.eq("user_name", userName);
-//            User existingUser = userMapper.selectOne(queryWrapper);
-//            if (existingUser != null) {
-    // 更新用户名
-//                UpdateWrapper<User> updateWrapper = new UpdateWrapper<>();
-//                updateWrapper.eq("user_name", userName);
-//                User user = new User();
-//                user.setUserName(nowUserName);
-//                int rows = userMapper.update(user, updateWrapper);
-//                existingUser.setUserName(nowUserName);
-//                this.save(existingUser);
-//                System.out.println("更新成功：" + "更新"  + "条数据");
-//                return 1;
-//            } else {
-//                System.out.println("原用户名不存在");
-//                return 0;
-//            }
-//        } else {
-//            System.out.println("新用户名已存在");
-//            return 0;
-//        }
-//    }
 }
 
 

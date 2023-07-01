@@ -1,5 +1,10 @@
 package com.seven.rongxiaotong.entity.request;
 
+/**
+ * 用户注册类
+ * @author wjh
+ * @create 2023/6/29
+ **/
 public class UserRegisterRequest {
     private String password;
     private String nickName;

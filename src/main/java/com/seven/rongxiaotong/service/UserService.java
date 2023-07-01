@@ -14,4 +14,6 @@ public interface UserService extends IService<User> {
     String userRegister(String password,String nickName,String role);
 
     User selectByUserName(String username);
+
+    int userRePassword(String userName, String newPassword);
 }

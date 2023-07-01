@@ -56,19 +56,19 @@ public class UserController {
     }
 
     /**
-     * 用户自定义用户名
+     * 修改密码
      * @author wjh
      * @create 2023/6/30
      **/
-//    @PostMapping ("/rename")
-//    public Result<String> userRename(String userName,String nowUserName){
-//        //用户名是否重复 0 -- 重复   1 -- 没重复
-//        System.out.println("当前用户:"+userName+";修改后用户:"+nowUserName);
-//        int flag = userService.userRename(userName,nowUserName);
-//        if(flag == 1){
-//            return new Result(true,OK,"您的用户名已成功修改");
-//        }else{
-//            return new Result(false,ERROR,"该用户名已存在");
-//        }
-//    }
+    @PostMapping ("/rePassword")
+    public Result<String> userRename(@RequestParam("userName") String userName,@RequestParam("newPassword") String newPassword){
+        //用户名是否重复 0 -- 重复   1 -- 没重复
+        System.out.println("当前用户:"+userName+";修改后用户密码:"+newPassword);
+        int flag = userService.userRePassword(userName,newPassword);
+        if(flag == 1){
+            return new Result(true,OK,"您的密码已成功修改");
+        }else{
+            return new Result(false,ERROR,"密码修改失败");
+        }
+    }
 }
