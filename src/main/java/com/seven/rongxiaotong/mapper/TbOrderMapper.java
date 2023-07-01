@@ -27,6 +27,13 @@ public interface TbOrderMapper extends BaseMapper<TbOrder> {
     // 按id查询商品
     TbOrder selectById(Integer id);
 
+    // 个人商品操作
+
+    // 添加商品
+    Integer insertOrder(TbOrder order);
+
+
+    // /个人商品操作
 
 }
 

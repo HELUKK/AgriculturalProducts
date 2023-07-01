@@ -194,4 +194,90 @@
             order_id = #{orderId,jdbcType=INTEGER}
         </where>
     </select>
+<!--    个人商品操作-->
+
+<!--    添加商品-->
+    <insert id="insertOrder"
+            parameterType="com.seven.rongxiaotong.entity.TbOrder">
+        insert into tb_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orderId != null">
+                order_id,
+            </if>
+            <if test="title != null">
+                title,
+            </if>
+            <if test="price != null">
+                price,
+            </if>
+            <if test="content != null">
+                content,
+            </if>
+            <if test="orderStatu != null">
+                order_statu,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="picture != null">
+                picture,
+            </if>
+            <if test="ownName != null">
+                own_name,
+            </if>
+            <if test="cooperationName != null">
+                cooperation_name,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="address != null">
+                address,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="orderId != null">
+                #{orderId,jdbcType=INTEGER},
+            </if>
+            <if test="title != null">
+                #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="price != null">
+                #{price,jdbcType=DECIMAL},
+            </if>
+            <if test="content != null">
+                #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="orderStatu != null">
+                #{orderStatu,jdbcType=INTEGER},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="picture != null">
+                #{picture,jdbcType=VARCHAR},
+            </if>
+            <if test="ownName != null">
+                #{ownName,jdbcType=VARCHAR},
+            </if>
+            <if test="cooperationName != null">
+                #{cooperationName,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="address != null">
+                #{address,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+
+<!--    个人商品操作-->
 </mapper>

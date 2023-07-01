@@ -28,4 +28,11 @@ public interface TbOrderService extends IService<TbOrder> {
 
     // 查询所有商品的货源 （根据登陆者权限判定）
     PageInfo<TbOrder> selectGoodsByKeys (Integer pageNum,String keys,String name);
+
+    // 个人商品操作
+
+    // 添加商品
+    void add (TbOrder order);
+
+    // /个人商品操作
 }

@@ -106,6 +106,18 @@ public class TbOrderServiceImpl extends ServiceImpl<TbOrderMapper, TbOrder>
         return orderPageInfo;
     }
 
+    // 个人商品操作
+
+    // 添加商品
+
+    @Override
+    public void add(TbOrder order) {
+        tbOrderMapper.insertOrder(order);
+    }
+
+
+    // /个人商品操作
+
 }
 
 
