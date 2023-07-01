@@ -44,6 +44,16 @@ public class TbKnowledgeServiceImpl extends ServiceImpl<TbKnowledgeMapper, TbKno
         PageInfo<TbKnowledge> tbKnowledgePageInfo = new PageInfo<>(tbKnowledges);
         return tbKnowledgePageInfo;
     }
+
+    @Override
+    public List<TbKnowledge> selectByUsername(String name) {
+        return null;
+    }
+
+    @Override
+    public void add(TbKnowledge tbKnowledge){
+
+    }
 }
 
 
