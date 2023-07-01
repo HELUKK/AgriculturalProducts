@@ -60,6 +60,12 @@ public interface TbOrderService extends IService<TbOrder> {
     // 个人需求管理模块
     // 条件查询个人需求
     PageInfo<TbOrder> selectNeedsByKeys(Integer pageNum,String keys,String name);
-
+    // 分页查询个人需求 不用写，selectByType中把type设为needs
+    // 更新需求
+    void updateMyNeeds(TbOrder order);
+    // 删除需求
+    void deleteMyNeeds(Integer id);
+    // 添加需求
+    void addMyNeeds(TbOrder order);
     // 个人需求管理模块
 }

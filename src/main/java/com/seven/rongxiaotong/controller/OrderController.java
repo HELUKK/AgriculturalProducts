@@ -148,7 +148,6 @@ public class OrderController {
     // /个人商品操作
 
     // 所有需求模块实现
-
     // 查询全部商品需求
     @GetMapping("/needs/{pageNum}")
     public Result<PageInfo> selectAllNeeds (@PathVariable("pageNum")Integer pageNum) {
@@ -162,9 +161,9 @@ public class OrderController {
         PageInfo<TbOrder> orders = tbOrderService.selectAllNeedsByKeys(pageNum,keys,null);
         return new Result<PageInfo>(true,StatusCode.OK,"查询成功",orders);
     }
-
     // 所有需求模块实现
 
+    // 个人需求管理模块
     // 条件查询个人需求
     @GetMapping("/searchMyNeedsByKeys/{keys}/{pageNum}")
     public Result<PageInfo> searchMyNeedsByKeys (@PathVariable("pageNum") Integer pageNum,@PathVariable("keys") String keys) {
@@ -174,4 +173,7 @@ public class OrderController {
         PageInfo<TbOrder> orders = tbOrderService.selectNeedsByKeys(pageNum,keys,name);
         return new Result<PageInfo>(true,StatusCode.OK,"查询成功",orders);
     }
+
+    //分页查询个人需求 不用写，selectByType中把type设为needs
+    // 个人需求管理模块
 }

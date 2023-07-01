@@ -215,7 +215,7 @@ public class TbOrderServiceImpl extends ServiceImpl<TbOrderMapper, TbOrder>
 
     // 所有需求模块实现
 
-    // 查询个人需求
+    // 条件查询个人需求
     @Override
     public PageInfo<TbOrder> selectNeedsByKeys(Integer pageNum, String keys, String name) {
         TbOrder order = new TbOrder();
@@ -226,6 +226,23 @@ public class TbOrderServiceImpl extends ServiceImpl<TbOrderMapper, TbOrder>
         List<TbOrder> orders = tbOrderMapper.selectByKeys(order);
         PageInfo<TbOrder> orderPageInfo = new PageInfo<>(orders);
         return orderPageInfo;
+    }
+
+    // 分页查询个人需求 不用写，selectByType中把type设为needs
+    // 更新个人需求
+    @Override
+    public void updateMyNeeds(TbOrder order) {
+
+    }
+    // 删除个人需求
+    @Override
+    public void deleteMyNeeds(Integer id) {
+
+    }
+    // 修改个人需求
+    @Override
+    public void addMyNeeds(TbOrder order) {
+
     }
 }
 
