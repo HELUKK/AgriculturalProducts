@@ -62,10 +62,10 @@ public class UserController {
      * @create 2023/6/30
      **/
     @PostMapping ("/rePassword")
-    public Result<String> userRename(@RequestParam("userName") String userName,@RequestParam("newPassword") String newPassword){
+    public Result<String> userRename(@RequestParam("newPassword") String newPassword){
         //用户名是否重复 0 -- 重复   1 -- 没重复
-        System.out.println("当前用户:"+userName+";修改后用户密码:"+newPassword);
-        int flag = userService.userRePassword(userName,newPassword);
+        System.out.println("修改后用户密码:"+newPassword);
+        int flag = userService.userRePassword(newPassword);
         if(flag == 1){
             return new Result(true,OK,"您的密码已成功修改");
         }else{

@@ -2,6 +2,7 @@ package com.seven.rongxiaotong.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.seven.rongxiaotong.entity.User;
+import org.apache.ibatis.annotations.Param;
 
 /**
 * @author wenjh
@@ -11,6 +12,8 @@ import com.seven.rongxiaotong.entity.User;
 */
 public interface UserMapper extends BaseMapper<User> {
     User selectByUserName(String userName);
+
+    void updateByUserName(@Param("userName") String userName,@Param("encryptPassword") String encryptPassword);
 }
 
 

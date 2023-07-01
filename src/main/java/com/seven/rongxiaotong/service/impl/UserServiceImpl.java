@@ -8,6 +8,8 @@ import com.seven.rongxiaotong.entity.User;
 import com.seven.rongxiaotong.security.config.WebSecurityConfig;
 import com.seven.rongxiaotong.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -112,29 +114,22 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
      * @author wjh
      * @create 2023/6/30
      *
-     * @param userName 用户名
      * @param newPassword 用户重新设置的密码
      * @return java.lang.String
      **/
     @Override
-    public int userRePassword(String userName, String newPassword) {
-        // 检查原用户名是否存在
-        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("user_name", userName);
-        long count = userMapper.selectCount(queryWrapper);
-        if(count==0){
-            System.out.println("用户不存在");
-        }
+    public int userRePassword(String newPassword) {
+        // 获取当前用户
+        UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String userName = principal.getUsername();
+//        String userName = "wjh";//测试使用
         //1.2 校验密码：以字母开头，长度在6-18之间，只能包含英文字符、数字和下划线
         Pattern pattern = Pattern.compile(PASSWORD);
         if (pattern.matcher(newPassword).matches()) {
-            User user = new User();
-            user.setUserName(userName);
             //密码加密后加入数据库
             PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
             String encryptPassword = passwordEncoder.encode(newPassword);
-            user.setPassword(encryptPassword);
-            userMapper.updateById(user);
+            userMapper.updateByUserName(userName,encryptPassword);
             System.out.println("密码更新成功");
             return 1;
         } else {

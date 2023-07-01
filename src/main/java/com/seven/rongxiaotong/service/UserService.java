@@ -15,5 +15,5 @@ public interface UserService extends IService<User> {
 
     User selectByUserName(String username);
 
-    int userRePassword(String userName, String newPassword);
+    int userRePassword(String newPassword);
 }

@@ -38,4 +38,8 @@
             user_name = #{userName,jdbcType=VARCHAR}
         </where>
     </select>
+
+    <update id="updateByUserName" parameterType="java.util.Map">
+        update user set password = #{encryptPassword} where user_name = #{userName}
+    </update>
 </mapper>
