@@ -5,13 +5,11 @@ import com.seven.rongxiaotong.common.Result;
 import com.seven.rongxiaotong.common.StatusCode;
 import com.seven.rongxiaotong.entity.TbOrder;
 import com.seven.rongxiaotong.service.TbOrderService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/order")
 public class OrderController {
@@ -43,6 +41,13 @@ public class OrderController {
         PageInfo<TbOrder> orders = tbOrderService.selectAllByKeys(pageNum,keys);
 
         return new Result<PageInfo>(true,StatusCode.OK,"查询成功",orders);
+    }
+
+    // 按权限查询所有商品货源
+    @GetMapping("/searchGoodsByKeys/{keys}/{pageNum}")
+    public Result<PageInfo> searchGoodsByKeys(@PathVariable("keys") String keys,@PathVariable("pageNum") Integer pageNum) {
+        PageInfo<TbOrder> orders = tbOrderService.selectGoodsByKeys(pageNum,keys,null);
+        return new Result<PageInfo>(true, StatusCode.OK, "查询成功", orders);
     }
 
     // 按id查询商品 只查询到一个数据

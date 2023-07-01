@@ -7,9 +7,12 @@ import com.github.pagehelper.PageInfo;
 import com.seven.rongxiaotong.entity.TbOrder;
 import com.seven.rongxiaotong.mapper.TbOrderMapper;
 import com.seven.rongxiaotong.service.TbOrderService;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -69,7 +72,39 @@ public class TbOrderServiceImpl extends ServiceImpl<TbOrderMapper, TbOrder>
 
     // 查询所有商品的货源 （根据登陆者权限判定）
 
+    @Override
+    public PageInfo<TbOrder> selectGoodsByKeys(Integer pageNum, String keys,  String name) {
+        //创建Order实例
+        TbOrder order = new TbOrder();
+        order.setType("goods");
+        order.setContent(keys);
 
+        try {
+            UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            System.out.println("========="+principal);
+            Iterator it = principal.getAuthorities().iterator(); // 获得一个迭代子
+            while(it.hasNext()) {
+                Object obj = it.next(); // 得到下一个元素
+                String role = obj.toString();
+                if(!role.equals("admin"))
+                {
+                    order.setOwnName(name);
+                    order.setOrderStatu(0);
+                    break;
+                }
+            }
+        }catch (Exception e){
+
+        }
+
+        //分页
+        PageHelper.startPage(pageNum, 20);
+        //查询
+        List<TbOrder> orders = tbOrderMapper.selectByKeys(order);
+        PageInfo<TbOrder> orderPageInfo = new PageInfo<>(orders);
+
+        return orderPageInfo;
+    }
 
 }
 
