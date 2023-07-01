@@ -75,7 +75,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/user/add/**",
                         "/order/goods/**","/order/All/**","/order/needs/**","/order/selectById/**","/order/searchGoodsByKeys/**","/order/searchNeedsByKeys/**","/order/searchAllByKeys/**",
                         "/knowledge/**",
-                        "/paySuccessful/**","/user/register/**",
+                        "/paySuccessful/**","/**",
                         "/file/**").permitAll()
                 .anyRequest().authenticated()   // 任何请求,登录后可以访问
                 .and().addFilterAt(customAuthenticationFilter(),//JSON登陆实现，在 UsernamePasswordAuthenticationFilter，之前添加JSON格式
