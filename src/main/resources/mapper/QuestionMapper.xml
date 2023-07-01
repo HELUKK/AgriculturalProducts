@@ -21,4 +21,70 @@
         phone,plant_name,title,
         question,answer,status
     </sql>
+    <insert id="insertOne" parameterType="com.seven.rongxiaotong.entity.Question">
+        insert into question
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="expertName != null">
+                expert_name,
+            </if>
+            <if test="questioner != null">
+                questioner,
+            </if>
+            <if test="phone != null">
+                phone,
+            </if>
+            <if test="plantName != null">
+                plant_name,
+            </if>
+            <if test="title != null">
+                title,
+            </if>
+            <if test="question != null">
+                question,
+            </if>
+            <if test="answer != null">
+                answer,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="expertName != null">
+                #{expertName,jdbcType=VARCHAR},
+            </if>
+            <if test="questioner != null">
+                #{questioner,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="plantName != null">
+                #{plantName,jdbcType=VARCHAR},
+            </if>
+            <if test="title != null">
+                #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="question != null">
+                #{question,jdbcType=VARCHAR},
+            </if>
+            <if test="answer != null">
+                #{answer,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="selectAllByKeys" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+            <include refid="Base_Column_List"></include>
+            from question
+        <where>
+            <if test="keys != null">
+                title like CONCAT('%',#{keys,jdbcType=VARCHAR},'%')
+            </if>
+        </where>
+    </select>
 </mapper>

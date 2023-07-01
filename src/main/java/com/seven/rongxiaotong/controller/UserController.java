@@ -29,6 +29,7 @@ public class UserController {
      * @author wjh
      * @create 2023/6/30
      **/
+
     @PostMapping("/register")
     public Result<String> userRegister(@RequestBody UserRegisterRequest userRegisterRequest){
         if(userRegisterRequest == null){

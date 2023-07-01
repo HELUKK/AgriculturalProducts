@@ -17,4 +17,15 @@
         user_name,real_name,phone,
         profession,position,belong
     </sql>
+    <select id="selectByKeys" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"></include>
+        from expert
+        <where>
+            <if test="keys != null">
+                user_name like CONCAT('%',#{keys,jdbcType=VARCHAR},'%') or real_name like CONCAT('%',#{keys,jdbcType=VARCHAR},'%')
+            </if>
+        </where>
+    </select>
+
 </mapper>

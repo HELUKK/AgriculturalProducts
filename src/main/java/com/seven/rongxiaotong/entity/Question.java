@@ -14,7 +14,7 @@ import java.io.Serializable;
 @TableName(value ="question")
 public class Question implements Serializable {
     /**
-     * id
+     * 自增id
      */
     @TableId
     private Integer id;
@@ -22,11 +22,13 @@ public class Question implements Serializable {
     /**
      * 专家用户id
      */
+    @NotBlank(message = "专家用户id不能为空")
     private String expertName;
 
     /**
      * 咨询者
      */
+    @NotBlank(message = "咨询者不能为空")
     private String questioner;
 
     /**

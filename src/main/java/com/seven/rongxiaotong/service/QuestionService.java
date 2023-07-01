@@ -1,6 +1,8 @@
 package com.seven.rongxiaotong.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.github.pagehelper.PageInfo;
+import com.seven.rongxiaotong.entity.Expert;
 import com.seven.rongxiaotong.entity.Question;
 
 /**
@@ -13,4 +15,10 @@ public interface QuestionService extends IService<Question> {
     Question selectById(Integer id);
 
     void insert(Question question);
+
+    PageInfo<Question> selectByKeys(String keys, Integer pageNum);
+
+    PageInfo<Expert> selectExpert(Integer pageNum);
+
+    PageInfo<Expert> selectExpertByKeys(String keys, Integer pageNum);
 }
