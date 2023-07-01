@@ -122,6 +122,13 @@ public class TbOrderServiceImpl extends ServiceImpl<TbOrderMapper, TbOrder>
         tbOrderMapper.deleteOrder(id);
     }
 
+    // 修改商品
+    @Override
+    public void update(TbOrder order) {
+        tbOrderMapper.updateOrder(order);
+    }
+
+
     // /个人商品操作
 
 }

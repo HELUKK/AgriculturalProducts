@@ -37,7 +37,8 @@ public interface TbOrderService extends IService<TbOrder> {
     // 删除商品
     void delete (Integer id);
 
-    //
+    // 修改商品
+    void update (TbOrder order);
 
     // /个人商品操作
 }

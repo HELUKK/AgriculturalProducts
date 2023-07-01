@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -101,6 +102,27 @@ public class OrderController {
     public Result deleteOrder(@PathVariable("id") Integer id) {
         tbOrderService.delete(id);
         return new Result(true, StatusCode.OK, "删除成功");
+    }
+
+    // 修改商品
+    @PutMapping("/{id}")
+    public Result<String> update(@Validated @RequestBody TbOrder order, BindingResult bindingResult,
+                                 @PathVariable Integer id) {
+        //检查项目
+        if (bindingResult.hasErrors()) {
+            StringBuffer stringBuffer = new StringBuffer();
+            List<ObjectError> allErrors = bindingResult.getAllErrors();
+            for (ObjectError objectError : allErrors) {
+                stringBuffer.append(objectError.getDefaultMessage()).append("; ");
+            }
+            String s = stringBuffer.toString();
+            System.out.println(s);
+            return new Result<String>(false, StatusCode.ERROR, "修改失败",s);
+        }
+        order.setUpdateTime(new Date());
+        order.setOrderId(id);
+        tbOrderService.update(order);
+        return new Result(true, StatusCode.OK, "修改成功",null);
     }
 
 

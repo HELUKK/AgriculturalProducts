@@ -285,6 +285,48 @@
         where order_id = #{orderId,jdbcType=INTEGER}
     </delete>
 
+<!--    修改商品-->
+    <update id="updateOrder"
+            parameterType="com.seven.rongxiaotong.entity.TbOrder">
+        update tb_order
+        <set>
+            <if test="title != null">
+                title = #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="price != null">
+                price = #{price,jdbcType=DECIMAL},
+            </if>
+            <if test="content != null">
+                content = #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="orderStatu != null">
+                order_statu = #{orderStatu,jdbcType=INTEGER},
+            </if>
+            <if test="type != null">
+                type = #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="picture != null">
+                picture = #{picture,jdbcType=VARCHAR},
+            </if>
+            <if test="ownName != null">
+                own_name = #{ownName,jdbcType=VARCHAR},
+            </if>
+            <if test="cooperationName != null">
+                cooperation_name = #{cooperationName,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="address != null">
+                address = #{address,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where order_id = #{orderId,jdbcType=VARCHAR}
+    </update>
+
 
 <!--    个人商品操作-->
 </mapper>
