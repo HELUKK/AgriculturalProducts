@@ -97,6 +97,7 @@ import java.util.Map;
                 Claims claims = getClaimsFromToken(token);
                 username = claims.getSubject();
             } catch (Exception e) {
+                System.out.println("令牌存在但无法读取，有可能是令牌过期或被篡改");
                 username = null;
             }
             return username;

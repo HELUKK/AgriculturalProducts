@@ -28,7 +28,7 @@ public class TbOrderServiceImpl extends ServiceImpl<TbOrderMapper, TbOrder>
     @Resource
     private TbOrderMapper tbOrderMapper;
 
-    private Integer pageSize = 30;
+    private Integer pageSize = 10;
 
     // 查询所有商品
     @Override

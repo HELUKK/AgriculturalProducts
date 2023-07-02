@@ -5,7 +5,6 @@ import com.seven.rongxiaotong.common.Result;
 import com.seven.rongxiaotong.common.StatusCode;
 import com.seven.rongxiaotong.entity.TbOrder;
 import com.seven.rongxiaotong.service.TbOrderService;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.BindingResult;

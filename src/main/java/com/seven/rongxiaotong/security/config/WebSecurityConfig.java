@@ -71,11 +71,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                .antMatchers("/swagger-ui.html#/**","/swagger-ui.html/**",//"/**",
+                .antMatchers("/swagger-ui.html#/**",
+                        "/swagger-ui.html/**",//"/**",
                         "/user/add/**",
                         "/order/goods/**","/order/All/**","/order/needs/**","/order/selectById/**","/order/searchGoodsByKeys/**","/order/searchNeedsByKeys/**","/order/searchAllByKeys/**",
                         "/knowledge/**",
                         "/paySuccessful/**",
+                        "/**",
                         "/file/**").permitAll()
                 .anyRequest().authenticated()   // 任何请求,登录后可以访问
                 .and().addFilterAt(customAuthenticationFilter(),//JSON登陆实现，在 UsernamePasswordAuthenticationFilter，之前添加JSON格式

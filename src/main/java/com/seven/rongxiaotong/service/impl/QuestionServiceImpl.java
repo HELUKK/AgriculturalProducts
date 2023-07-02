@@ -30,7 +30,7 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question>
     @Resource
     private ExpertMapper expertMapper;
 
-    private Integer pageSize = 30;
+    private Integer pageSize = 10;
 
     /**
      * 根据id查询询问情况
