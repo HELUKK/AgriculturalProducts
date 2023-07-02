@@ -7,6 +7,7 @@ import com.seven.rongxiaotong.entity.TbDiscuss;
 import com.seven.rongxiaotong.entity.TbKnowledge;
 import com.seven.rongxiaotong.service.TbDiscussService;
 import com.seven.rongxiaotong.service.TbKnowledgeService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,7 @@ import java.util.List;
 public class KnowledgeController {
     @Resource
     private TbKnowledgeService tbKnowledgeService;
+    @Resource
     private TbDiscussService tbDiscussService;
 
     /**
@@ -28,7 +30,7 @@ public class KnowledgeController {
      * @author: juny
      * @date: 2023-06-30 下午3:05
      */
-    @GetMapping("{pageNum}")
+    @GetMapping("/{pageNum}")
     public Result<PageInfo<TbKnowledge>> findPage(@PathVariable Integer pageNum){
         PageInfo<TbKnowledge> knowledgePageInfo = tbKnowledgeService.findPage(pageNum);
         return new Result<PageInfo<TbKnowledge>>(true, StatusCode.OK,"查询成功",knowledgePageInfo);
@@ -63,6 +65,7 @@ public class KnowledgeController {
     public Result selectByUsername(){
         UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String name = principal.getUsername();
+//        String name = "wyn3";
         List<TbKnowledge> tbKnowledges = tbKnowledgeService.selectByUsername(name);
         return new Result(true,StatusCode.OK,"查询成功",tbKnowledges);
     }
@@ -73,6 +76,7 @@ public class KnowledgeController {
      * @date: 2023-07-01 上午9:34
      */
     @PostMapping()
+    @PreAuthorize("hasAuthority('expert')")
     public Result add(@RequestBody TbKnowledge tbKnowledge){
         tbKnowledgeService.add(tbKnowledge);
         return new Result(true,StatusCode.OK,"添加成功");
@@ -108,7 +112,7 @@ public class KnowledgeController {
     @GetMapping("/selectByKnowledge/{id}")
     public Result selectByKnowledge(@PathVariable("id") Integer id){
         List<TbDiscuss> discusses = tbDiscussService.selectByKnowledgeId(id);
-        return new Result(true,StatusCode.OK,"查询成功",discusses);
+        return new Result(true,StatusCode.OK,"查询1成功",discusses);
     }
     /**
      * @description: TODO 添加讨论消息
@@ -116,11 +120,12 @@ public class KnowledgeController {
      * @author: juny
      * @date: 2023-07-01 下午4:10
      */
-    @GetMapping("/addByKnowledge/{id}/{content}")
+    @PostMapping("/addByKnowledge/{id}/{content}")
     public Result addByKnowledge(@PathVariable("id") Integer id,@PathVariable("content") String content){
         //获取用户名
         UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String name = principal.getUsername();
+//        String name = "wyn3";
 
         TbDiscuss tbDiscuss = new TbDiscuss();
         tbDiscuss.setKnowledgeId(id);
