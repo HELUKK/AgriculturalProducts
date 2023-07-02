@@ -122,7 +122,7 @@
                 update_time = #{updateTime,jdbcType=TIMESTAMP},
             </if>
         </set>
-        where knowledge_id = #{knowledgeId,jdcbType=INTEGER}
+        where knowledge_id = #{knowledgeId,jdbcType=INTEGER}
     </update>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
         delete from tb_knowledge

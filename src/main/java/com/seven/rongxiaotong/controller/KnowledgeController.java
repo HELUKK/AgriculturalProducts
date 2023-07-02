@@ -3,13 +3,16 @@ package com.seven.rongxiaotong.controller;
 import com.github.pagehelper.PageInfo;
 import com.seven.rongxiaotong.common.Result;
 import com.seven.rongxiaotong.common.StatusCode;
+import com.seven.rongxiaotong.entity.TbDiscuss;
 import com.seven.rongxiaotong.entity.TbKnowledge;
+import com.seven.rongxiaotong.service.TbDiscussService;
 import com.seven.rongxiaotong.service.TbKnowledgeService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 @CrossOrigin
@@ -18,6 +21,7 @@ import java.util.List;
 public class KnowledgeController {
     @Resource
     private TbKnowledgeService tbKnowledgeService;
+    private TbDiscussService tbDiscussService;
 
     /**
      * @description: TODO 分页查询所有知识
@@ -94,5 +98,37 @@ public class KnowledgeController {
     public Result delete(@PathVariable("id") Integer id){
         tbKnowledgeService.delete(id);
         return new Result(true,StatusCode.OK,"删除成功");
+    }
+
+    /**
+     * @description: TODO 查询评论
+     * @author: juny
+     * @date: 2023-07-01 下午2:49
+     */
+    @GetMapping("/selectByKnowledge/{id}")
+    public Result selectByKnowledge(@PathVariable("id") Integer id){
+        List<TbDiscuss> discusses = tbDiscussService.selectByKnowledgeId(id);
+        return new Result(true,StatusCode.OK,"查询成功",discusses);
+    }
+    /**
+     * @description: TODO 添加讨论消息
+     * @return com.seven.rongxiaotong.common.Result
+     * @author: juny
+     * @date: 2023-07-01 下午4:10
+     */
+    @GetMapping("/addByKnowledge/{id}/{content}")
+    public Result addByKnowledge(@PathVariable("id") Integer id,@PathVariable("content") String content){
+        //获取用户名
+        UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String name = principal.getUsername();
+
+        TbDiscuss tbDiscuss = new TbDiscuss();
+        tbDiscuss.setKnowledgeId(id);
+        tbDiscuss.setOwnName(name);
+        tbDiscuss.setCreateTime(new Date());
+        tbDiscuss.setContent(content);
+
+        tbDiscussService.add(tbDiscuss);
+        return new Result(true,StatusCode.OK,"查询成功",tbDiscuss);
     }
 }

@@ -159,8 +159,91 @@ public class TbOrderServiceImpl extends ServiceImpl<TbOrderMapper, TbOrder>
     }
 
 
+
+
     // /个人商品操作
 
+    // 所有需求模块实现
+
+    // 条件查询商品需求
+    @Override
+    public PageInfo<TbOrder> selectAllNeedsByKeys(Integer pageNum, String keys, String name) {
+        TbOrder order = new TbOrder();
+        // 把类型设置为needs
+        order.setType("needs");
+        // keys存到content里面
+        order.setContent(keys);
+
+        try {
+            UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            System.out.println("========="+principal);
+            Iterator it = principal.getAuthorities().iterator(); // 获得一个迭代子
+            while(it.hasNext()) {
+                Object obj = it.next(); // 得到下一个元素
+                String role = obj.toString();
+                if(!role.equals("admin")) // 如果不是管理员
+                {
+                    order.setOwnName(name);
+                    order.setOrderStatu(0);
+                    break;
+                }
+            }
+        }catch (Exception e){
+
+        }
+
+        //分页
+        PageHelper.startPage(pageNum, pageSize);
+        //查询
+        List<TbOrder> orders = tbOrderMapper.selectByKeys(order);
+        PageInfo<TbOrder> orderPageInfo = new PageInfo<>(orders);
+
+        return orderPageInfo;
+    }
+
+
+    // 查询全部商品需求
+    @Override
+    public PageInfo<TbOrder> selectAllNeeds(Integer pageNum) {
+        TbOrder order = new TbOrder();
+        order.setType("needs");
+        PageHelper.startPage(pageNum, pageSize);
+        List<TbOrder> orders = tbOrderMapper.selectByExample(order);
+        PageInfo<TbOrder> orderPageInfo = new PageInfo<>(orders);
+        return orderPageInfo;
+    }
+
+    // 所有需求模块实现
+
+    // 条件查询个人需求
+    @Override
+    public PageInfo<TbOrder> selectNeedsByKeys(Integer pageNum, String keys, String name) {
+        TbOrder order = new TbOrder();
+        order.setType("needs");
+        order.setContent(keys);
+        order.setOwnName(name);
+        PageHelper.startPage(pageNum, pageSize);
+        List<TbOrder> orders = tbOrderMapper.selectByKeys(order);
+        PageInfo<TbOrder> orderPageInfo = new PageInfo<>(orders);
+        return orderPageInfo;
+    }
+
+    // 分页查询个人需求 不用写，selectByType中把type设为needs
+    // 更新个人需求
+    @Override
+    public void updateMyNeeds(TbOrder order) {
+
+    }
+    // 删除个人需求
+    @Override
+    public void deleteMyNeeds(Integer id) {
+
+    }
+    // 修改个人需求
+    @Override
+    public void addMyNeeds(TbOrder order) {
+
+    }
 }
 
 
