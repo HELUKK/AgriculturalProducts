@@ -25,5 +25,7 @@ public interface UserService extends IService<User> {
 
     List<User> selectAllUser();
 
-//    PageInfo<User> selectByAllUser(Integer pageNum);
+    PageInfo<User> selectAllUserPage(Integer pageNum);
+
+    PageInfo<User> selectAllUserPage(Integer pageNum, User user);
 }

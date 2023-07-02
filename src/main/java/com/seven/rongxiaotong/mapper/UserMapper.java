@@ -5,6 +5,7 @@ import com.seven.rongxiaotong.entity.User;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
+import java.util.List;
 
 /**
 * @author wenjh
@@ -18,6 +19,8 @@ public interface UserMapper extends BaseMapper<User> {
     void updatePasswordByUserName(@Param("userName") String userName, @Param("encryptPassword") String encryptPassword);
 
     void updateUpdateTimeByUserName(String userName, Date updateTime);
+
+    List<User> selectAllUserPage(User user);
 }
 
 

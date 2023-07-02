@@ -136,7 +136,6 @@ public class UserController {
         return new Result<String>(true, StatusCode.OK, "修改成功", token);
     }
 
-    //管理员
     /**
      * 查询所有用户
      * @author wjh
@@ -209,10 +208,37 @@ public class UserController {
         User user = userService.selectByUserName(userName);
         return new Result(true, StatusCode.OK, "删除成功",user);
     }
-//分页查询所有用户
-//    @GetMapping("/search/{pageNum}")
-//    public Result<PageInfo<User>> selectByAllUser(@PathVariable("pageNum") Integer pageNum) {
-//        PageInfo<User> pageInfo = userService.selectByAllUser(pageNum);
-//        return new Result(true, StatusCode.OK, "查询成功",pageInfo);
-//    }
+
+    /**
+     * 分页查询所有用户
+     * @author wjh
+     * @create 2023/7/2
+     *
+     * @param pageNum 页码
+     * @return com.seven.rongxiaotong.common.Result<com.github.pagehelper.PageInfo < com.seven.rongxiaotong.entity.User>>
+     **/
+    @GetMapping("/search/{pageNum}")
+    public Result<PageInfo<User>> selectAllUserPage(@PathVariable("pageNum") Integer pageNum) {
+        PageInfo<User> pageInfo = userService.selectAllUserPage(pageNum);
+        return new Result(true, StatusCode.OK, "查询成功",pageInfo);
+    }
+
+    /**
+     * 分页条件查询
+     * userName,nickName,address,realName 模糊查询条件
+     * role精准查询
+     * @author wjh
+     * @create 2023/7/2
+     *
+     * @param pageNum 页码
+     * @param user 查询条件
+     *
+     * @return com.seven.rongxiaotong.common.Result<com.github.pagehelper.PageInfo < com.seven.rongxiaotong.entity.User>>
+     **/
+
+    @PostMapping("/search/{pageNum}")
+    public Result<PageInfo<User>> selectAllUser(@PathVariable("pageNum") Integer pageNum,@RequestBody User user) {
+        PageInfo<User> userPageInfo = userService.selectAllUserPage(pageNum,user);
+        return new Result(true, StatusCode.OK, "查询成功",userPageInfo);
+    }
 }

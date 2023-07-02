@@ -41,8 +41,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     @Resource
     private  UserMapper userMapper;
 
-//    @Resource
-//    private UserService userService;
     /**
      * @author wjh
      * @create 2023/6/29
@@ -145,6 +143,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     }
 
     /**
+     * 通过用户名更新用户数据
      * @author wjh
      * @create 2023/7/2
      *
@@ -160,19 +159,49 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         userMapper.updateById(user);
     }
 
+    /**
+     * 查询所有用户数据
+     * @author wjh
+     * @create 2023/7/2
+     *
+     * @return java.util.List<com.seven.rongxiaotong.entity.User>
+     **/
     @Override
     public List<User> selectAllUser() {
         return userMapper.selectList(null);
     }
 
-//    @Override
-//    public PageInfo<User> selectByAllUser(Integer pageNum) {
-//        PageHelper.startPage(pageNum,pageSize);
-//        List<User> users = userService.selectAllUser();
-//        PageInfo<User> userPageInfo = new PageInfo<User>(users);
-//        return userPageInfo;
-//    }
+    /**
+     * 分页查询所有用户
+     * @author wjh
+     * @create 2023/7/2
+     *
+     * @param pageNum 页码
+     * @return com.github.pagehelper.PageInfo<com.seven.rongxiaotong.entity.User>
+     **/
+    @Override
+    public PageInfo<User> selectAllUserPage(Integer pageNum) {
+        PageHelper.startPage(pageNum,pageSize);
+        List<User> users = userMapper.selectList(null);
+        PageInfo<User> userPageInfo = new PageInfo<User>(users);
+        return userPageInfo;
+    }
 
+    @Override
+    public PageInfo<User> selectAllUserPage(Integer pageNum, User user) {
+        PageHelper.startPage(pageNum,pageSize);
+        List<User> users = userMapper.selectAllUserPage(user);
+        PageInfo<User> userPageInfo = new PageInfo<User>(users);
+        return userPageInfo;
+    }
+
+    /**
+     * 生成用户名(账号)
+     * @author wjh
+     * @create 2023/7/2
+     *
+     * @return java.lang.String
+     **/
     public static String generateUserName(){
         //生成账号
         Random random = new Random();

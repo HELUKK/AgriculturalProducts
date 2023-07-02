@@ -47,4 +47,29 @@
         update user set update_time = #{updateTime} where user_name = #{userName}
     </update>
 
+    <select id="selectAllUserPage"
+            parameterType="com.seven.rongxiaotong.entity.User"
+            resultType="com.seven.rongxiaotong.entity.User">
+        select
+        <include refid="Base_Column_List" />
+        from user
+        <where>
+            1 = 1
+            <if test="userName != null">
+                and user_name like CONCAT('%',#{userName,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="nickName != null">
+                and nick_name like CONCAT('%',#{nickName,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="address != null">
+                and address like CONCAT('%',#{address,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="role != null">
+                and role = #{role,jdbcType=VARCHAR}
+            </if>
+            <if test="realName != null">
+                and real_name like CONCAT('%',#{realName,jdbcType=VARCHAR},'%')
+            </if>
+        </where>
+    </select>
 </mapper>
