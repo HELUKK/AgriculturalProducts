@@ -28,4 +28,15 @@
         </where>
     </select>
 
+    <select id="selectExpertByUserName"
+            parameterType="string"
+            resultType="com.seven.rongxiaotong.entity.Expert">
+        select
+        <include refid="Base_Column_List" />
+        from user
+        <where>
+            user_name = #{userName,jdbcType=VARCHAR}
+        </where>
+    </select>
+
 </mapper>

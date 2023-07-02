@@ -1,8 +1,12 @@
 package com.seven.rongxiaotong.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.github.pagehelper.PageInfo;
 import com.seven.rongxiaotong.entity.User;
 import com.seven.rongxiaotong.entity.request.UserRegisterRequest;
+import com.seven.rongxiaotong.entity.request.UserUpdateRequest;
+
+import java.util.List;
 
 /**
  * @author wenjh
@@ -16,4 +20,10 @@ public interface UserService extends IService<User> {
     User selectByUserName(String username);
 
     int userRePassword(String newPassword);
+
+    void loginUpdateByUsername(UserUpdateRequest userUpdateRequest);
+
+    List<User> selectAllUser();
+
+//    PageInfo<User> selectByAllUser(Integer pageNum);
 }

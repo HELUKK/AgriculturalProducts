@@ -14,6 +14,7 @@ import java.util.List;
 public interface ExpertMapper extends BaseMapper<Expert> {
 
     List<Expert> selectByKeys(String keys);
+    Expert selectExpertByUserName(String userName);
 }
 
 

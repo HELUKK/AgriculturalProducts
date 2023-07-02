@@ -1,13 +1,14 @@
 package com.seven.rongxiaotong.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.seven.rongxiaotong.entity.request.UserUpdateRequest;
 import com.seven.rongxiaotong.mapper.UserMapper;
 import com.seven.rongxiaotong.entity.User;
-import com.seven.rongxiaotong.security.config.WebSecurityConfig;
 import com.seven.rongxiaotong.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.BeanUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 import java.util.regex.Pattern;
 
@@ -39,12 +41,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     @Resource
     private  UserMapper userMapper;
 
+//    @Resource
+//    private UserService userService;
     /**
      * @author wjh
      * @create 2023/6/29
      *
      **/
 
+    private Integer pageSize = 10;
     private static final String ALLOWED_CHARACTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     private static final String PASSWORD = "^[a-zA-Z][a-zA-Z0-9_]{5,17}$";
     private static final String ROLE = "^(user|expert|admin)$";
@@ -129,7 +134,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
             //密码加密后加入数据库
             PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
             String encryptPassword = passwordEncoder.encode(newPassword);
-            userMapper.updateByUserName(userName,encryptPassword);
+            userMapper.updatePasswordByUserName(userName,encryptPassword);
             System.out.println("密码更新成功");
             return 1;
         } else {
@@ -138,6 +143,35 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         }
 
     }
+
+    /**
+     * @author wjh
+     * @create 2023/7/2
+     *
+     * @param userUpdateRequest 更新用户数据
+     * @return void
+     **/
+    @Override
+    public void loginUpdateByUsername(UserUpdateRequest userUpdateRequest) {
+        //更新用户信息
+        userMapper.updateUpdateTimeByUserName(userUpdateRequest.getUserName(),new Date());
+        User user = userMapper.selectByUserName(userUpdateRequest.getUserName());
+        BeanUtils.copyProperties(userUpdateRequest,user);
+        userMapper.updateById(user);
+    }
+
+    @Override
+    public List<User> selectAllUser() {
+        return userMapper.selectList(null);
+    }
+
+//    @Override
+//    public PageInfo<User> selectByAllUser(Integer pageNum) {
+//        PageHelper.startPage(pageNum,pageSize);
+//        List<User> users = userService.selectAllUser();
+//        PageInfo<User> userPageInfo = new PageInfo<User>(users);
+//        return userPageInfo;
+//    }
 
     public static String generateUserName(){
         //生成账号

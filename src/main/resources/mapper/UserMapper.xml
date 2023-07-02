@@ -39,7 +39,12 @@
         </where>
     </select>
 
-    <update id="updateByUserName" parameterType="java.util.Map">
+    <update id="updatePasswordByUserName" parameterType="java.util.Map">
         update user set password = #{encryptPassword} where user_name = #{userName}
     </update>
+
+    <update id="updateUpdateTimeByUserName" parameterType="java.util.Map">
+        update user set update_time = #{updateTime} where user_name = #{userName}
+    </update>
+
 </mapper>

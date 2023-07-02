@@ -1,16 +1,16 @@
 package com.seven.rongxiaotong.entity;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
-import org.springframework.data.annotation.Id;
 
 import javax.validation.constraints.Pattern;
 import java.util.Date;
 
 @Data
 public class User {
-    @Id
+    @TableId
 //    @Column(name = "userName")
 //    @NotBlank(message = "账号不能为空")
     @Pattern(regexp = "^[a-zA-Z][A-Za-z0-9]{2,9}+$",message = "账号必须以字母开头，长度在3-10之间，只能包含英文字符、数字")

@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.seven.rongxiaotong.entity.User;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
+
 /**
 * @author wenjh
 * @description 针对表【user】的数据库操作Mapper
@@ -13,7 +15,9 @@ import org.apache.ibatis.annotations.Param;
 public interface UserMapper extends BaseMapper<User> {
     User selectByUserName(String userName);
 
-    void updateByUserName(@Param("userName") String userName,@Param("encryptPassword") String encryptPassword);
+    void updatePasswordByUserName(@Param("userName") String userName, @Param("encryptPassword") String encryptPassword);
+
+    void updateUpdateTimeByUserName(String userName, Date updateTime);
 }
 
 

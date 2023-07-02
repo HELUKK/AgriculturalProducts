@@ -26,8 +26,6 @@ import java.util.List;
 public class QuestionController {
     @Resource
     private QuestionService questionService;
-    @Resource
-    private ExpertService expertService;
 
     //根据id查询询问情况
     @GetMapping("/selectId/{id}")

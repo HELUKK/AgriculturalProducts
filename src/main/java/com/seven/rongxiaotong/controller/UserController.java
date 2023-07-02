@@ -1,16 +1,30 @@
 package com.seven.rongxiaotong.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.seven.rongxiaotong.common.Result;
+import com.seven.rongxiaotong.common.StatusCode;
+import com.seven.rongxiaotong.entity.Expert;
+import com.seven.rongxiaotong.entity.TbOrder;
 import com.seven.rongxiaotong.entity.User;
 import com.seven.rongxiaotong.entity.request.UserRegisterRequest;
+import com.seven.rongxiaotong.entity.request.UserUpdateRequest;
+import com.seven.rongxiaotong.mapper.TbOrderMapper;
+import com.seven.rongxiaotong.mapper.UserMapper;
+import com.seven.rongxiaotong.service.ExpertService;
 import com.seven.rongxiaotong.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
+import com.seven.rongxiaotong.security.service.impl.JwtUserDetailsServiceImpl;
+import com.seven.rongxiaotong.security.util.JwtTokenUtil;
 import javax.annotation.Resource;
+
+import java.util.List;
 
 import static com.seven.rongxiaotong.common.StatusCode.ERROR;
 import static com.seven.rongxiaotong.common.StatusCode.OK;
@@ -27,6 +41,18 @@ import static com.seven.rongxiaotong.common.StatusCode.OK;
 public class UserController {
     @Resource
     private UserService userService;
+
+    @Resource
+    private JwtUserDetailsServiceImpl jwtUserDetailsService;
+
+    @Resource
+    private JwtTokenUtil jwtTokenUtil;
+
+    @Resource
+    private TbOrderMapper tbOrderMapper;
+
+    @Resource
+    private ExpertService expertService;
 
     /**
      * 用户注册
@@ -88,6 +114,105 @@ public class UserController {
         UserDetails principal = (UserDetails) authentication.getPrincipal();
         String username = principal.getUsername();
         User user = userService.selectByUserName(username);
+        user.setPassword("这也偷看?");
         return new Result<>(true,OK,"用户信息查询成功",user);
     }
+
+    /**
+     * 根据用户名更新用户信息
+     * @author wjh
+     * @create 2023/7/2
+     **/
+    @PostMapping("/loginUpdateByUsername")
+    public Result<String> loginUpdateByUsername(@RequestBody UserUpdateRequest userUpdateRequest) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails principal = (UserDetails) authentication.getPrincipal();
+        String username = principal.getUsername();
+
+        userUpdateRequest.setUserName(username);
+        userService.loginUpdateByUsername(userUpdateRequest);
+        UserDetails userDetails = jwtUserDetailsService.loadUserByUsername(username);
+        String token = jwtTokenUtil.generateToken(userDetails);
+        return new Result<String>(true, StatusCode.OK, "修改成功", token);
+    }
+
+    //管理员
+    /**
+     * 查询所有用户
+     * @author wjh
+     * @create 2023/7/2
+     * **/
+    @GetMapping("/selectAllUser")
+    public Result<List<User>> selectAllUser(){
+        List<User> users = userService.selectAllUser();
+        return new Result<List<User>>(true, StatusCode.OK, "查询成功", users);
+    }
+
+    /**
+     * 根据用户名更新用户
+     * @author wjh
+     * @create 2023/7/2
+     **/
+    @PutMapping(value = "/{userName}")
+    public Result<String> update(@Validated @RequestBody User user, BindingResult bindingResult, @PathVariable("userName") String userName) {
+        if(user == null){
+            return new Result<String>(true, ERROR, "user为null", "修改失败");
+        }
+        if (bindingResult.hasErrors()) {
+            StringBuffer stringBuffer = new StringBuffer();
+            List<ObjectError> allErrors = bindingResult.getAllErrors();
+            for (ObjectError objectError : allErrors) {
+                stringBuffer.append(objectError.getDefaultMessage()).append("; ");
+            }
+            String s = stringBuffer.toString();
+            System.out.println(s);
+            return new Result<String>(false, StatusCode.ERROR, "信息修改失败", s);
+        }
+        if(userName != null){
+            user.setUserName(userName);
+            userService.updateById(user);
+            return new Result<String>(true, StatusCode.OK, "信息修改成功", "修改成功");
+        }else{
+            return new Result<String>(true, ERROR, "userName为null,修改失败", "修改失败");
+        }
+    }
+
+    /**
+     * 根据用户名删除用户
+     * @author wjh
+     * @create 2023/7/2
+     **/
+    @DeleteMapping("/{userName}")
+    public Result<String> deletes(@PathVariable("userName") String userName) {
+        if(userName == null){
+            return new Result<String>(false, StatusCode.ERROR, "删除失败", "该用户不存在");
+        }
+        //判断该用户是否有订单信息
+        TbOrder order = new TbOrder();
+        order.setOwnName(userName);
+        List<TbOrder> orders = tbOrderMapper.selectByExample(order);
+        if (!orders.isEmpty()) {
+            return new Result<String>(false, StatusCode.ERROR, "删除失败", "该用户有发布的订单，暂不能删除");
+        }
+        userService.removeById(userName);
+        expertService.removeById(userName);
+        return new Result(true, StatusCode.OK, "删除成功");
+    }
+
+    /**
+     * 按userName查找用户
+     * @author wjh
+     * @create 2023/7/2
+     **/
+    @GetMapping("/{userName}")
+    public Result<User> selectByUserName(@PathVariable("userName") String userName){
+        User user = userService.selectByUserName(userName);
+        return new Result(true, StatusCode.OK, "删除成功",user);
+    }
+//分页查询所有用户
+//    @GetMapping("/search/{pageNum}")
+//    public Result<PageInfo<User>> selectByAllUser(@PathVariable("pageNum") Integer pageNum) {
+//        PageInfo<User> pageInfo = userService.selectByAllUser(pageNum);
+//        return new Result(true, StatusCode.OK, "查询成功",pageInfo);
+//    }
 }

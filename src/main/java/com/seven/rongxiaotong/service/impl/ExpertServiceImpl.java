@@ -6,6 +6,8 @@ import com.seven.rongxiaotong.mapper.ExpertMapper;
 import com.seven.rongxiaotong.service.ExpertService;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+
 /**
 * @author wenjh
 * @description 针对表【expert(专家信息表)】的数据库操作Service实现
@@ -15,6 +17,12 @@ import org.springframework.stereotype.Service;
 public class ExpertServiceImpl extends ServiceImpl<ExpertMapper, Expert>
     implements ExpertService{
 
+    @Resource
+    private ExpertMapper expertMapper;
+    @Override
+    public Expert selectByUserName(String userName) {
+        return expertMapper.selectExpertByUserName(userName);
+    }
 }
 
 
