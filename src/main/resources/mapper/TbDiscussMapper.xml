@@ -20,25 +20,25 @@
         select
         <include refid="Base_Column_List"/>
         from tb_discuss
-        where knowledge_id = #{knowledge_id,jdbcType=INTEGER}
+        where knowledge_id = #{knowledgeId,jdbcType=INTEGER}
     </select>
 
     <insert id="insertSelective" parameterType="com.seven.rongxiaotong.entity.TbDiscuss">
         insert into tb_discuss
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test=" discussId != null">
+            <if test="discussId != null">
                 discuss_id,
             </if>
-            <if test=" knowledgeId != null">
+            <if test="knowledgeId != null">
                 knowledge_id,
             </if>
-            <if test=" ownName != null">
+            <if test="ownName != null">
                 own_name,
             </if>
-            <if test=" content != null">
+            <if test="content != null">
                 content,
             </if>
-            <if test=" createTime != null">
+            <if test="createTime != null">
                 create_time,
             </if>
         </trim>
