@@ -21,7 +21,7 @@ import java.util.Map;
     public class JwtTokenUtil {
         private String secret = "qst123456";
         // 过期时间 毫秒
-        private static final Long expiration = 3600000L;
+        private static final Long expiration = 1000*60*60*24L;
         private static final String header = "Authorization";
 
         /**
