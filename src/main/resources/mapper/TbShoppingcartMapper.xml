@@ -17,4 +17,9 @@
         shopping_id,order_id,count,
         own_name,create_time,update_time
     </sql>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from tb_shoppingcart
+        where shopping_id = #{shoppingId,jdbcType=INTEGER}
+    </delete>
 </mapper>

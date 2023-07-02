@@ -10,7 +10,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 * @Entity com.seven.rongxiaotong.entity.TbShoppingcart
 */
 public interface TbShoppingcartMapper extends BaseMapper<TbShoppingcart> {
-
+    int deleteByPrimaryKey(Integer shoppingId);
 }
 
 

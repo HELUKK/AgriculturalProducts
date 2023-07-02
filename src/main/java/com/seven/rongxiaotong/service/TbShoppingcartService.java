@@ -2,6 +2,9 @@ package com.seven.rongxiaotong.service;
 
 import com.seven.rongxiaotong.entity.TbShoppingcart;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.seven.rongxiaotong.model.ShoppingModel;
+
+import java.util.List;
 
 /**
 * @author 10594
@@ -10,4 +13,15 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface TbShoppingcartService extends IService<TbShoppingcart> {
 
+
+    void delete(Integer id);
+    static List<ShoppingModel> selectByUserOrderId(Integer id){
+        return null;
+    }
+
+    static void update(TbShoppingcart tbshoppingcart) {
+    }
+
+    static void add(TbShoppingcart tbshoppingcart) {
+    }
 }

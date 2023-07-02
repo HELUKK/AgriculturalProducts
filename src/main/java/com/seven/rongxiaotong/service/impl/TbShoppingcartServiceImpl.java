@@ -6,6 +6,8 @@ import com.seven.rongxiaotong.service.TbShoppingcartService;
 import com.seven.rongxiaotong.mapper.TbShoppingcartMapper;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+
 /**
 * @author 10594
 * @description 针对表【tb_shoppingcart】的数据库操作Service实现
@@ -15,6 +17,12 @@ import org.springframework.stereotype.Service;
 public class TbShoppingcartServiceImpl extends ServiceImpl<TbShoppingcartMapper, TbShoppingcart>
     implements TbShoppingcartService{
 
+    @Resource
+    private TbShoppingcartMapper tbShoppingcartMapper;
+    @Override
+    public void delete(Integer id) {
+        tbShoppingcartMapper.deleteByPrimaryKey(id);
+    }
 }
 
 
