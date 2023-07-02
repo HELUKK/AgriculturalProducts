@@ -5,9 +5,12 @@ import com.seven.rongxiaotong.entity.TbSellPurchase ;
 import com.seven.rongxiaotong.service.TbSellPurchaseService;
 import com.seven.rongxiaotong.mapper.TbSellPurchaseMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
 * @author 86152
@@ -26,6 +29,15 @@ public class TbSellPurchaseServiceImpl extends ServiceImpl<TbSellPurchaseMapper,
     @Override
     public void add(TbSellPurchase sellPurchase) {
         tbSellPurchaseMapper.insertSelective(sellPurchase);
+    }
+
+    @Override
+    public List<TbSellPurchase> selectByName(){
+        //获取用户名
+        UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String name = principal.getUsername();
+
+        return tbSellPurchaseMapper.selectByName(name);
     }
 
 }

@@ -2,6 +2,9 @@ package com.seven.rongxiaotong.mapper;
 
 import com.seven.rongxiaotong.entity.TbSellPurchase ;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import io.lettuce.core.dynamic.annotation.Param;
+
+import java.util.List;
 
 /**
 * @author 86152
@@ -16,6 +19,8 @@ public interface TbSellPurchaseMapper extends BaseMapper<TbSellPurchase> {
     // 添加卖出订单
     int insertSelective(TbSellPurchase record);
 
+    // 查询个人卖出订单
+    List<TbSellPurchase> selectByName(@Param("ownName")String ownName);
 }
 
 
