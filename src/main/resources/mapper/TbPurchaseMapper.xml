@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seven.rongxiaotong.mapper.TbPurchaseMapper">
+
+    <resultMap id="BaseResultMap" type="com.seven.rongxiaotong.entity.TbPurchase">
+            <id property="purchaseId" column="purchase_id" jdbcType="INTEGER"/>
+            <result property="ownName" column="own_name" jdbcType="VARCHAR"/>
+            <result property="purchaseType" column="purchase_type" jdbcType="INTEGER"/>
+            <result property="totalPrice" column="total_price" jdbcType="DECIMAL"/>
+            <result property="address" column="address" jdbcType="VARCHAR"/>
+            <result property="purchaseStatus" column="purchase_status" jdbcType="INTEGER"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        purchase_id,own_name,purchase_type,
+        total_price,address,purchase_status,
+        create_time,update_time
+    </sql>
+
+    <insert id="insertSelective" parameterType="com.seven.rongxiaotong.entity.TbPurchase">
+        insert into tb_purchase
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="purchaseId != null">
+                purchase_id,
+            </if>
+            <if test="ownName != null">
+                own_name,
+            </if>
+            <if test="purchaseType != null">
+                purchase_type,
+            </if>
+            <if test="totalPrice != null">
+                total_price,
+            </if>
+            <if test="address != null">
+                address,
+            </if>
+            <if test="purchaseStatus != null">
+                purchase_status,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="purchaseId != null">
+                #{purchaseId,jdbcType=INTEGER},
+            </if>
+            <if test="ownName != null">
+                #{ownName,jdbcType=VARCHAR},
+            </if>
+            <if test="purchaseType != null">
+                #{purchaseType,jdbcType=INTEGER},
+            </if>
+            <if test="totalPrice != null">
+                #{totalPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="address != null">
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="purchaseStatus != null">
+                #{purchaseStatus,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <select id="selectNewPurchaseId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM
+        tb_purchase
+        where
+        own_name = #{ownName}
+        order by create_time desc
+        limit 1
+    </select>
+</mapper>
