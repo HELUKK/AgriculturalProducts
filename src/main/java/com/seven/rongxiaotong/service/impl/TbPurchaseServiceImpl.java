@@ -2,10 +2,15 @@ package com.seven.rongxiaotong.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.seven.rongxiaotong.entity.TbPurchase ;
+import com.seven.rongxiaotong.model.MyPurchase;
 import com.seven.rongxiaotong.service.TbPurchaseService;
 import com.seven.rongxiaotong.mapper.TbPurchaseMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
 * @author 86152
@@ -30,6 +35,22 @@ public class TbPurchaseServiceImpl extends ServiceImpl<TbPurchaseMapper, TbPurch
     public TbPurchase selectNewPurchaseId(String ownName) {
         TbPurchase purchase = tbPurchaseMapper.selectNewPurchaseId(ownName);
         return purchase;
+    }
+
+    @Override
+    public List<MyPurchase> selectByPurchaseType() {
+        //获取用户名
+        UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String name = principal.getUsername();
+        //创建Purchase实例，设置用户名，订单类型
+//        Purchase purchase= new Purchase();
+        MyPurchase purchase = new MyPurchase();
+        purchase.setOwnName(name);
+        //查询
+        List<MyPurchase> purchases = tbPurchaseMapper.selectByPurchase(name);
+        System.out.println(purchases);
+
+        return purchases;
     }
 
 }

@@ -4,7 +4,11 @@ import com.github.pagehelper.PageInfo;
 import com.seven.rongxiaotong.common.Result;
 import com.seven.rongxiaotong.common.StatusCode;
 import com.seven.rongxiaotong.entity.TbOrder;
+import com.seven.rongxiaotong.entity.TbPurchaseDetail;
+import com.seven.rongxiaotong.model.MyPurchase;
 import com.seven.rongxiaotong.service.TbOrderService;
+import com.seven.rongxiaotong.service.TbPurchaseDetailService;
+import com.seven.rongxiaotong.service.TbPurchaseService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.BindingResult;
@@ -25,6 +29,10 @@ public class OrderController {
 
     @Resource
     private TbOrderService tbOrderService;
+    @Resource
+    private TbPurchaseService tbPurchaseService;
+    @Resource
+    private TbPurchaseDetailService tbPurchaseDetailService;
 
     // 平台首页模块
     // 查询全部的商品
@@ -178,4 +186,18 @@ public class OrderController {
 
     //分页查询个人需求 不用写，selectByType中把type设为needs
     // 个人需求管理模块
+
+    //根据登录用户查询我买的订单
+    @GetMapping("/selectBuys")
+    public Result<List<MyPurchase>> selectBuys() {
+        List<MyPurchase> purchase = tbPurchaseService.selectByPurchaseType();
+        return new Result<List<MyPurchase>>(true, StatusCode.OK, "查询成功", purchase);
+
+    }
+    //根据登录用户查询我买的订单详情
+    @GetMapping("/selectBuysDetail/{id}")
+    public Result<List<TbPurchaseDetail>> selectBuysDetail(@PathVariable("id") Integer purchaseId) {
+        List<TbPurchaseDetail> purchaseDetail = tbPurchaseDetailService.selectByPurchaseId(purchaseId);
+        return new Result<List<TbPurchaseDetail>>(true, StatusCode.OK, "查询成功", purchaseDetail);
+    }
 }

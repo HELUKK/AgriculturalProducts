@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
 * @author 86152
@@ -24,6 +25,12 @@ public class TbPurchaseDetailServiceImpl extends ServiceImpl<TbPurchaseDetailMap
     @Override
     public void add(TbPurchaseDetail purchaseDetail) {
         tbPurchaseDetailMapper.insertSelective(purchaseDetail);
+    }
+
+    @Override
+    public List<TbPurchaseDetail> selectByPurchaseId(Integer purchaseId) {
+        List<TbPurchaseDetail> purchaseDetails = tbPurchaseDetailMapper.selectByPurchaseId(purchaseId);
+        return purchaseDetails;
     }
 }
 

@@ -2,7 +2,10 @@ package com.seven.rongxiaotong.mapper;
 
 import com.seven.rongxiaotong.entity.TbPurchase ;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.seven.rongxiaotong.model.MyPurchase;
 import io.lettuce.core.dynamic.annotation.Param;
+
+import java.util.List;
 
 /**
 * @author 86152
@@ -19,6 +22,9 @@ public interface TbPurchaseMapper extends BaseMapper<TbPurchase> {
 
 //    根据用户名获取最新订单
     TbPurchase selectNewPurchaseId(@Param("ownName")String ownName);
+
+//    查询个人订单
+    List<MyPurchase> selectByPurchase(String  name);
 }
 
 

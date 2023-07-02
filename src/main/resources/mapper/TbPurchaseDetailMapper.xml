@@ -61,4 +61,11 @@
             </if>
         </trim>
     </insert>
+
+    <select id="selectByPurchaseId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from tb_purchase_detail
+        where purchase_id = #{purchaseId,jdbcType=INTEGER}
+    </select>
 </mapper>

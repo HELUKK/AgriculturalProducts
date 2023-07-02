@@ -3,6 +3,8 @@ package com.seven.rongxiaotong.service;
 import com.seven.rongxiaotong.entity.TbPurchaseDetail ;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
 * @author 86152
 * @description 针对表【tb_purchase_detail】的数据库操作Service
@@ -12,4 +14,7 @@ public interface TbPurchaseDetailService extends IService<TbPurchaseDetail> {
 
     // 添加订单详情
     void add(TbPurchaseDetail purchaseDetail);
+
+    // 查询个人订单详情
+    List<TbPurchaseDetail> selectByPurchaseId(Integer purchaseId);
 }
