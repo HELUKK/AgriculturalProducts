@@ -1,9 +1,13 @@
 package com.seven.rongxiaotong.controller;
 
 import com.seven.rongxiaotong.common.Result;
+import com.seven.rongxiaotong.entity.User;
 import com.seven.rongxiaotong.entity.request.UserRegisterRequest;
 import com.seven.rongxiaotong.service.UserService;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -62,7 +66,7 @@ public class UserController {
      * @create 2023/6/30
      **/
     @PostMapping ("/rePassword")
-    public Result<String> userRename(@RequestParam("newPassword") String newPassword){
+    public Result<String> userRePassword(@RequestParam("newPassword") String newPassword){
         //用户名是否重复 0 -- 重复   1 -- 没重复
         System.out.println("修改后用户密码:"+newPassword);
         int flag = userService.userRePassword(newPassword);
@@ -71,5 +75,19 @@ public class UserController {
         }else{
             return new Result(false,ERROR,"密码修改失败");
         }
+    }
+
+    /**
+     * 登录后获取用户信息,用于用户信息展示页
+     * @author wjh
+     * @create 2023/7/2
+     **/
+    @GetMapping("/loginSelectByUsername")
+    public Result<User> loginSelectByUsername() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails principal = (UserDetails) authentication.getPrincipal();
+        String username = principal.getUsername();
+        User user = userService.selectByUserName(username);
+        return new Result<>(true,OK,"用户信息查询成功",user);
     }
 }
