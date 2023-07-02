@@ -9,7 +9,6 @@ import com.seven.rongxiaotong.entity.TbShoppingcart;
 import com.seven.rongxiaotong.model.ShoppingModel;
 import com.seven.rongxiaotong.service.*;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.parameters.P;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
@@ -50,17 +49,16 @@ public class CartController {
         tbshoppingcart.setCount(1);
         tbshoppingcart.setCreateTime(new Date());
         tbshoppingcart.setUpdateTime(new Date());
-
-        List<ShoppingModel> shoppingcarts = TbShoppingcartService.selectByUserOrderId(id);
-        if (null!= shoppingcarts && shoppingcarts.size() > 0){
-            tbshoppingcart.setCount(shoppingcarts.get(0).getCount() + 1);
-            tbshoppingcart.setShoppingId(shoppingcarts.get(0).getShoppingId());
-            TbShoppingcartService.update(tbshoppingcart);
+        List<ShoppingModel> shoppingCarts = tbShoppingcartService.selectByUserOrderId(id);
+        if(shoppingCarts != null && shoppingCarts.size() > 0){
+            tbshoppingcart.setShoppingId(shoppingCarts.get(0).getShoppingId());
+            tbshoppingcart.setCount(shoppingCarts.get(0).getCount() + 1);
+            tbShoppingcartService.update(tbshoppingcart);
         }
         else {
-            TbShoppingcartService.add(tbshoppingcart);
+            tbShoppingcartService.add(tbshoppingcart);
         }
-        return new Result(true, StatusCode.OK, "添加商品到购物车成功");
+        return new Result(true,StatusCode.OK,"添加购物车成功");
     }
     /**
      * @description: TODO 删除购物车商品
@@ -72,6 +70,30 @@ public class CartController {
         //获取用户名
         tbShoppingcartService.delete(id);
         return new Result<>(true,StatusCode.OK,"删除商品成功");
+    }
+    /**
+     * @description: TODO 展示购物车
+     * @author: juny
+     * @date: 2023-07-02 下午4:48
+     */
+    @GetMapping("/show")
+    public Result<List<ShoppingModel>>show(){
+        List<ShoppingModel> shoppingModelList = tbShoppingcartService.selectByUsername();
+        return new Result<List<ShoppingModel>>(true,StatusCode.OK,"展示成功",shoppingModelList);
+    }
+    /**
+     * @description: TODO 更新购物车商品
+     * @author: juny
+     * @date: 2023-07-02 下午4:54
+     */
+    @PutMapping("/update/{id}/{count}")
+    public Result update(@PathVariable("id") Integer id, @PathVariable("count") Integer count){
+        TbShoppingcart tbShoppingcart = new TbShoppingcart();
+        tbShoppingcart.setCount(count);
+        tbShoppingcart.setOrderId(id);
+
+        tbShoppingcartService.update(tbShoppingcart);
+        return new Result(true,StatusCode.OK,"更新购物车成功");
     }
     @PostMapping("/commitOrder/{addId}/{tMoney}")
     public Result commitOrder(@PathVariable("addId") Integer addId, @PathVariable("tMoney") String tMoney, @RequestBody List<ShoppingModel> shoppingModelList) {

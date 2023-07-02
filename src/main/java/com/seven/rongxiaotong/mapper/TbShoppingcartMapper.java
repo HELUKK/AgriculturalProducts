@@ -2,6 +2,9 @@ package com.seven.rongxiaotong.mapper;
 
 import com.seven.rongxiaotong.entity.TbShoppingcart;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.seven.rongxiaotong.model.ShoppingModel;
+
+import java.util.List;
 
 /**
 * @author 10594
@@ -11,6 +14,11 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 */
 public interface TbShoppingcartMapper extends BaseMapper<TbShoppingcart> {
     int deleteByPrimaryKey(Integer shoppingId);
+    List<ShoppingModel> selectByShopping(TbShoppingcart shoppingcart);
+
+    void insertSelective(TbShoppingcart tbshoppingcart);
+
+    void updateByPrimaryKeySelective(TbShoppingcart tbshoppingcart);
 }
 
 

@@ -15,13 +15,11 @@ public interface TbShoppingcartService extends IService<TbShoppingcart> {
 
 
     void delete(Integer id);
-    static List<ShoppingModel> selectByUserOrderId(Integer id){
-        return null;
-    }
+    List<ShoppingModel> selectByUserOrderId(Integer id);
 
-    static void update(TbShoppingcart tbshoppingcart) {
-    }
+    void update(TbShoppingcart tbshoppingcart);
 
-    static void add(TbShoppingcart tbshoppingcart) {
-    }
+    void add(TbShoppingcart tbshoppingcart);
+
+    List<ShoppingModel> selectByUsername();
 }
