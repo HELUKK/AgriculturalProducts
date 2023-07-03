@@ -87,17 +87,19 @@
         limit 1
     </select>
 
-    <select id="selectByPurchase" resultType="com.seven.rongxiaotong.model.MyPurchase">
-        select tb.purchaseId,tu.real_name as ownName,tb.purchaseType,
-               tb.totalPrice,tu.address ,tb.purchaseStatus ,tb.createTime ,
-               tb.updateTime,tb.picture
-        from tb_user as tu,
-             (SELECT DISTINCT tb1.purchase_id as purchaseId, tb1.own_name as ownName, tb1.purchase_type as purchaseType,
-                              tb1.total_price as totalPrice, tb1.address as address, tb1.purchase_status as purchaseStatus, tb1.create_time as createTime,
-                              tb1.update_time as updateTime,tb3.picture as picture
-              FROM tb_purchase AS tb1,tb_purchase_detail AS tb2,tb_order AS tb3 WHERE tb1.own_name=#{name}
-                                                                                  AND tb1.purchase_id = tb2.purchase_id AND tb2.order_id = tb3.order_id GROUP BY tb1.purchase_id) as tb
-        WHERE tu.user_name = tb.ownName
+    <select id="selectByPurchase"
+            resultType="com.seven.rongxiaotong.model.MyPurchase">
+        SELECT tb.purchaseId, tu.real_name as ownName, tb.purchaseType, tb.totalPrice, tu.address, tb.purchaseStatus, tb.createTime, tb.updateTime, tb.picture
+        FROM user AS tu
+                 JOIN
+             (
+                 SELECT tb1.purchase_id as purchaseId, tb1.own_name as ownName, tb1.purchase_type as purchaseType, tb1.total_price as totalPrice, tb1.address as address, tb1.purchase_status as purchaseStatus, tb1.create_time as createTime, tb1.update_time as updateTime,tb3.picture as picture
+                 FROM tb_purchase AS tb1
+                          JOIN tb_purchase_detail AS tb2 ON tb1.purchase_id = tb2.purchase_id
+                          JOIN tb_order AS tb3 ON tb2.order_id = tb3.order_id
+                 WHERE tb1.own_name=#{name}
+                 GROUP BY tb1.purchase_id, tb1.own_name, tb1.purchase_type, tb1.total_price, tb1.address, tb1.purchase_status, tb1.create_time, tb1.update_time, tb3.picture
+             ) AS tb ON tu.user_name = tb.ownName
     </select>
 
 </mapper>

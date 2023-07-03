@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -23,7 +24,7 @@ purchase_status：1待付款 2待发货 3待收货 4已收货)】的数据库操
 public class TbPurchaseServiceImpl extends ServiceImpl<TbPurchaseMapper, TbPurchase>
     implements TbPurchaseService{
 
-    @Autowired
+    @Resource
     private TbPurchaseMapper tbPurchaseMapper;
 
     @Override
@@ -48,7 +49,8 @@ public class TbPurchaseServiceImpl extends ServiceImpl<TbPurchaseMapper, TbPurch
         purchase.setOwnName(name);
         //查询
         List<MyPurchase> purchases = tbPurchaseMapper.selectByPurchase(name);
-        System.out.println(purchases);
+
+        System.out.println("查询到的结果： "+purchases);
 
         return purchases;
     }
