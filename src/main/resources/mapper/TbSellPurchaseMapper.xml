@@ -52,7 +52,7 @@
             <if test="purchaseType != null">
                 purchase_type,
             </if>
-            <if test="uninPricee != null">
+            <if test="uninPrice != null">
                 unin_pricee,
             </if>
             <if test="sumPrice != null">
@@ -87,8 +87,8 @@
             <if test="purchaseType != null">
                 #{purchaseType,jdbcType=INTEGER},
             </if>
-            <if test="uninPricee != null">
-                #{uninPricee,jdbcType=DECIMAL},
+            <if test="uninPrice != null">
+                #{uninPrice,jdbcType=DECIMAL},
             </if>
             <if test="sumPrice != null">
                 #{sumPrice,jdbcType=DECIMAL},

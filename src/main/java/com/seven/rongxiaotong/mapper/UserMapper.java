@@ -14,6 +14,7 @@ import java.util.List;
 * @Entity com.wjh.agriculturalproducts.model.User
 */
 public interface UserMapper extends BaseMapper<User> {
+
     User selectByUserName(String userName);
 
     void updatePasswordByUserName(@Param("userName") String userName, @Param("encryptPassword") String encryptPassword);

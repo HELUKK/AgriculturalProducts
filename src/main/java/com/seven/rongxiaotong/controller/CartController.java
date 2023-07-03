@@ -102,26 +102,42 @@ public class CartController {
         UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String name = principal.getUsername();
 
+        // commitOrder中正常获取到了name；
+//        System.out.println("commitOrder中的获取的name: "+name);
+
         //添加购买人买入订单
         //创建Purchase实例，设置订单类型为
         TbPurchase purchase = new TbPurchase();
+//        purchaseId作为主键有自增效果 不用特意设计
+
         purchase.setPurchaseType(1);//买入商品
         purchase.setOwnName(name);
+
+//        ？？？ addId是addressId的意思，addressId与tb_address对应
         purchase.setAddress(addId.toString());
+
         purchase.setPurchaseStatus(1);//状态统一为待发货
         purchase.setTotalPrice(new BigDecimal(tMoney));
         purchase.setCreateTime(new Date());
         purchase.setUpdateTime(new Date());
 
+//        将商品存入订单表中
         tbPurchaseService.add(purchase);
-        //取得刚才插入订单的id
+
+        //取得刚才插入订单的id 通过获取最新订单的方式
         TbPurchase PurchaseGetId = tbPurchaseService.selectNewPurchaseId(name);
         Integer purchaseId = PurchaseGetId.getPurchaseId();
+
         //添加购买人买入订单详细
+        System.out.println("传入的body"+shoppingModelList);
+
         if (null != shoppingModelList && shoppingModelList.size() > 0){
+
             TbPurchaseDetail purchaseDetail = new TbPurchaseDetail();
             TbSellPurchase sellPurchase = new TbSellPurchase();
+
             for (int i = 0; i<shoppingModelList.size(); i++){
+
                 ShoppingModel shoppingModel = shoppingModelList.get(i);
                 purchaseDetail.setCount(shoppingModel.getCount());
                 purchaseDetail.setOrderId(shoppingModel.getOrderId());
@@ -143,9 +159,10 @@ public class CartController {
                 sellPurchase.setUninPrice(new BigDecimal(shoppingModel.getPrice()));
                 sellPurchase.setCreateTime(new Date());
                 sellPurchase.setUpdateTime(new Date());
+
                 tbSellPurchaseService.add(sellPurchase);
 
-               // 删除购物车信息
+                // 删除购物车信息
                 tbShoppingcartService.delete(shoppingModel.getShoppingId());
             }
         }

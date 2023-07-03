@@ -13,7 +13,9 @@ import java.util.List;
 * @Entity com.seven.rongxiaotong.entity.TbShoppingcart
 */
 public interface TbShoppingcartMapper extends BaseMapper<TbShoppingcart> {
+
     int deleteByPrimaryKey(Integer shoppingId);
+
     List<ShoppingModel> selectByShopping(TbShoppingcart shoppingcart);
 
     void insertSelective(TbShoppingcart tbshoppingcart);

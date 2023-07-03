@@ -15,6 +15,7 @@ public interface TbShoppingcartService extends IService<TbShoppingcart> {
 
 
     void delete(Integer id);
+
     List<ShoppingModel> selectByUserOrderId(Integer id);
 
     void update(TbShoppingcart tbshoppingcart);
