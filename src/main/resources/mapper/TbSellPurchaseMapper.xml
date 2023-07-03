@@ -108,7 +108,9 @@
         </trim>
     </insert>
 
-    <select id="selectByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <select id="selectByName"
+            parameterType="java.lang.String"
+            resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />
         from tb_sell_purchase
