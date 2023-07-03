@@ -14,9 +14,10 @@ import java.util.List;
 public interface TbShoppingcartService extends IService<TbShoppingcart> {
 
 
+    //根据购物车id删除
     void delete(Integer id);
 
-    List<ShoppingModel> selectByUserOrderId(Integer id);
+    List<ShoppingModel> selectByUserOrderId(Integer orderId);
 
     void update(TbShoppingcart tbshoppingcart);
 

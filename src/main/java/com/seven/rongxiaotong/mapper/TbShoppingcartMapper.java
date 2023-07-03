@@ -18,9 +18,9 @@ public interface TbShoppingcartMapper extends BaseMapper<TbShoppingcart> {
 
     List<ShoppingModel> selectByShopping(TbShoppingcart shoppingcart);
 
-    void insertSelective(TbShoppingcart tbshoppingcart);
+    int insertSelective(TbShoppingcart tbshoppingcart);
 
-    void updateByPrimaryKeySelective(TbShoppingcart tbshoppingcart);
+    int updateByPrimaryKeySelective(TbShoppingcart tbshoppingcart);
 }
 
 

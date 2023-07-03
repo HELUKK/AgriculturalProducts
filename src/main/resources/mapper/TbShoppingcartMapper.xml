@@ -82,7 +82,7 @@
                 update_time,
             </if>
         </trim>
-        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="shoppingId != null">
                 #{shoppingId,jdbcType=INTEGER},
             </if>

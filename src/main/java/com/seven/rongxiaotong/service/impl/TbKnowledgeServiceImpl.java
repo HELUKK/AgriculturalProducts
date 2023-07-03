@@ -85,6 +85,7 @@ public class TbKnowledgeServiceImpl extends ServiceImpl<TbKnowledgeMapper, TbKno
     public void add(TbKnowledge tbKnowledge){
         UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String name = principal.getUsername();
+//        String name = "wyn3";
         tbKnowledge.setOwnName(name);
         tbKnowledge.setCreateTime(new Date());
         tbKnowledge.setUpdateTime(new Date());
