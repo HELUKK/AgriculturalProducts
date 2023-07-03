@@ -16,6 +16,8 @@ public interface QuestionMapper extends BaseMapper<Question> {
     void insertOne(Question question);
 
     List<Question> selectAllByKeys(String keys);
+
+    List<Question> selectQuestionByNowUser(Question question);
 }
 
 

@@ -5,6 +5,8 @@ import com.github.pagehelper.PageInfo;
 import com.seven.rongxiaotong.entity.Expert;
 import com.seven.rongxiaotong.entity.Question;
 
+import java.util.List;
+
 /**
 * @author wenjh
 * @description 针对表【question(在线问答表)】的数据库操作Service
@@ -21,4 +23,6 @@ public interface QuestionService extends IService<Question> {
     PageInfo<Expert> selectExpert(Integer pageNum);
 
     PageInfo<Expert> selectExpertByKeys(String keys, Integer pageNum);
+
+    List<Question> selectQuestionByNowUser(String type);
 }

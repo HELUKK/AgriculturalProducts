@@ -5,6 +5,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.seven.rongxiaotong.entity.Expert;
 import com.seven.rongxiaotong.entity.Question;
+import com.seven.rongxiaotong.entity.User;
 import com.seven.rongxiaotong.mapper.ExpertMapper;
 import com.seven.rongxiaotong.mapper.QuestionMapper;
 import com.seven.rongxiaotong.service.QuestionService;
@@ -95,6 +96,21 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question>
         List<Expert> experts = expertMapper.selectByKeys(keys);
         PageInfo<Expert> expertPageInfo = new PageInfo<>(experts);
         return expertPageInfo;
+    }
+
+    @Override
+    public List<Question> selectQuestionByNowUser(String type) {
+        //获取当前用户
+        UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String name = principal.getUsername();
+        Question question = new Question();
+        if(type.equals("questioner")){
+            question.setQuestioner(name);
+        }else {
+            question.setExpertName(name);
+        }
+        List<Question> questions = questionMapper.selectQuestionByNowUser(question);
+        return questions;
     }
 }
 
