@@ -77,7 +77,7 @@
                 update_time,
             </if>
         </trim>
-        <trim prefix="values(" suffix=")" suffixOverrides=",">
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="knowledgeId != null">
                 #{knowledgeId,jdbcType=INTEGER},
             </if>

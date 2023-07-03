@@ -38,7 +38,7 @@ public class TbShoppingcartServiceImpl extends ServiceImpl<TbShoppingcartMapper,
     public List<ShoppingModel> selectByUserOrderId(Integer id) {
         UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String name = principal.getUsername();
-
+//        String name = "wyn3";
         TbShoppingcart tbShoppingcart = new TbShoppingcart();
         tbShoppingcart.setOwnName(name);
         tbShoppingcart.setOrderId(id);
@@ -56,6 +56,12 @@ public class TbShoppingcartServiceImpl extends ServiceImpl<TbShoppingcartMapper,
         tbShoppingcartMapper.insertSelective(tbShoppingcart);
     }
 
+    /**
+     * @description: TODO 获取购物车的用户信息
+     * @return java.util.List<com.seven.rongxiaotong.model.ShoppingModel>
+     * @author: juny
+     * @date: 2023-07-03 下午1:46
+     */
     @Override
     public List<ShoppingModel> selectByUsername() {
         UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

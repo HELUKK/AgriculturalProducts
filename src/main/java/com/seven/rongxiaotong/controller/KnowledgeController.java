@@ -63,9 +63,9 @@ public class KnowledgeController {
      */
     @GetMapping("/selectByUsername")
     public Result selectByUsername(){
-        UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String name = principal.getUsername();
-//        String name = "wyn3";
+//        UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        String name = principal.getUsername();
+        String name = "wyn3";
         List<TbKnowledge> tbKnowledges = tbKnowledgeService.selectByUsername(name);
         return new Result(true,StatusCode.OK,"查询成功",tbKnowledges);
     }
@@ -122,7 +122,7 @@ public class KnowledgeController {
      */
     @PostMapping("/addByKnowledge/{id}/{content}")
     public Result addByKnowledge(@PathVariable("id") Integer id,@PathVariable("content") String content){
-        //获取用户名
+//        //获取用户名
         UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String name = principal.getUsername();
 //        String name = "wyn3";
@@ -134,6 +134,6 @@ public class KnowledgeController {
         tbDiscuss.setContent(content);
 
         tbDiscussService.add(tbDiscuss);
-        return new Result(true,StatusCode.OK,"查询成功",tbDiscuss);
+        return new Result(true,StatusCode.OK,"添加成功",tbDiscuss);
     }
 }

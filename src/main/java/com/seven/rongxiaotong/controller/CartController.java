@@ -43,12 +43,15 @@ public class CartController {
         //获取登陆的用户名
         UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String name = principal.getUsername();
+//        String name = "wyn3";
+        //创建购物车对象
         TbShoppingcart tbshoppingcart =new TbShoppingcart();
         tbshoppingcart.setOwnName(name);
         tbshoppingcart.setOrderId(id);
         tbshoppingcart.setCount(1);
         tbshoppingcart.setCreateTime(new Date());
         tbshoppingcart.setUpdateTime(new Date());
+        //该用户的购物车是否已有该商品
         List<ShoppingModel> shoppingCarts = tbShoppingcartService.selectByUserOrderId(id);
         if(shoppingCarts != null && shoppingCarts.size() > 0){
             tbshoppingcart.setShoppingId(shoppingCarts.get(0).getShoppingId());
@@ -88,10 +91,13 @@ public class CartController {
      */
     @PutMapping("/update/{id}/{count}")
     public Result update(@PathVariable("id") Integer id, @PathVariable("count") Integer count){
+
+        //选择要更新的购物车
         TbShoppingcart tbShoppingcart = new TbShoppingcart();
         tbShoppingcart.setCount(count);
-        tbShoppingcart.setOrderId(id);
-
+        tbShoppingcart.setShoppingId(id);
+        tbShoppingcart.setUpdateTime(new Date());
+        //更新
         tbShoppingcartService.update(tbShoppingcart);
         return new Result(true,StatusCode.OK,"更新购物车成功");
     }
