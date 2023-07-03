@@ -15,6 +15,7 @@ import com.seven.rongxiaotong.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -235,10 +236,99 @@ public class UserController {
      *
      * @return com.seven.rongxiaotong.common.Result<com.github.pagehelper.PageInfo < com.seven.rongxiaotong.entity.User>>
      **/
-
     @PostMapping("/search/{pageNum}")
     public Result<PageInfo<User>> selectAllUser(@PathVariable("pageNum") Integer pageNum,@RequestBody User user) {
         PageInfo<User> userPageInfo = userService.selectAllUserPage(pageNum,user);
         return new Result(true, StatusCode.OK, "查询成功",userPageInfo);
+    }
+
+    /**
+     * 查看登录专家信息
+     * @author wjh
+     * @create 2023/7/3
+     *
+     * @return com.seven.rongxiaotong.common.Result<com.seven.rongxiaotong.entity.Expert>
+     **/
+    @GetMapping("/searchExpertByUserName")
+    public Result<Expert> searchExpertByUserName() {
+        //获取登陆的用户名
+        UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String userName = principal.getUsername();
+        Expert expert = expertService.selectByUserName(userName);
+        return new Result(true, StatusCode.OK, "查询成功",expert);
+    }
+
+    /**
+     * 查询所有专家存入list
+     * @author wjh
+     * @create 2023/7/3
+     *
+     * @return com.seven.rongxiaotong.common.Result<java.util.List < com.seven.rongxiaotong.entity.Expert>>
+     **/
+    @GetMapping("/searchAllExpert")
+    public Result<List<Expert>> searchAllExpert() {
+        List<Expert> experts = expertService.list(null);
+        return new Result(true, StatusCode.OK, "查询成功",experts);
+    }
+
+    /**
+     * 根据用户名删除专家
+     * @author wjh
+     * @create 2023/7/3
+     *
+     * @param userName 用户名
+     * @return com.seven.rongxiaotong.common.Result
+     **/
+    @DeleteMapping("/deleteExpert/{userName}")
+    public Result deleteExpert(@PathVariable("userName") String userName){
+        if(userName == null){
+            return new Result(true, StatusCode.OK, "用户名不存在");
+        } else {
+            expertService.removeById(userName);
+            return new Result(true, StatusCode.OK, "删除成功");
+        }
+    }
+
+    /**
+     * 根据用户名更新专家信息
+     * @author wjh
+     * @create 2023/7/3
+     *
+     * @param expert 专家信息 包括用户名
+     * @return com.seven.rongxiaotong.common.Result
+     **/
+    @PutMapping("/updateExpert")
+    public Result updateExpert(@RequestBody Expert expert) {
+        expertService.updateById(expert);
+        return new Result(true, StatusCode.OK, "删除成功");
+    }
+
+    /**
+     * 新增专家信息
+     * @author wjh
+     * @create 2023/7/3
+     *
+     * @param expert 专家信息
+     * @return com.seven.rongxiaotong.common.Result
+     **/
+    @PostMapping("/addExpert")
+    public Result addExpert(Expert expert) {
+        expertService.insert(expert);
+        return new Result(true, StatusCode.OK, "新增专家数据成功");
+    }
+
+    @PostMapping("/addOrUpdateExpert")
+    public Result addOrUpdateExpert(@RequestBody Expert expert) {
+        UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String userName = principal.getUsername();
+        Expert expert1 = expertService.selectByUserName(userName);
+        expert.setUserName(userName);
+        if(expert1 != null){
+            expertService.updateById(expert);
+            return new Result(true, StatusCode.OK, "修改专家数据成功");
+        }else {
+            expertService.insert(expert);
+            return new Result(true, StatusCode.OK, "新增专家数据成功");
+        }
     }
 }

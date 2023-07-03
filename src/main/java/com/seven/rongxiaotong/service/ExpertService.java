@@ -11,4 +11,6 @@ import com.seven.rongxiaotong.entity.Expert;
 public interface ExpertService extends IService<Expert> {
 
     Expert selectByUserName(String userName);
+
+    void insert(Expert expert);
 }

@@ -23,6 +23,11 @@ public class ExpertServiceImpl extends ServiceImpl<ExpertMapper, Expert>
     public Expert selectByUserName(String userName) {
         return expertMapper.selectExpertByUserName(userName);
     }
+
+    @Override
+    public void insert(Expert expert) {
+        expertMapper.insert(expert);
+    }
 }
 
 
