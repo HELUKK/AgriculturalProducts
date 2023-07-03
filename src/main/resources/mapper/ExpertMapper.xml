@@ -33,7 +33,7 @@
             resultType="com.seven.rongxiaotong.entity.Expert">
         select
         <include refid="Base_Column_List" />
-        from user
+        from expert
         <where>
             user_name = #{userName,jdbcType=VARCHAR}
         </where>
