@@ -24,6 +24,9 @@ public class ReserveServiceImpl extends ServiceImpl<ReserveMapper, Reserve>
     private ReserveMapper reserveMapper;
     @Override
     public void addReserve(Reserve reserve) {
+        UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String name = principal.getUsername();
+        reserve.setQuestioner(name);
         reserveMapper.insert(reserve);
     }
 
