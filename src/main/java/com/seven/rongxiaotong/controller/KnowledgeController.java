@@ -63,9 +63,9 @@ public class KnowledgeController {
      */
     @GetMapping("/selectByUsername")
     public Result selectByUsername(){
-//        UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        String name = principal.getUsername();
-        String name = "wyn3";
+        UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String name = principal.getUsername();
+//        String name = "wyn3";
         List<TbKnowledge> tbKnowledges = tbKnowledgeService.selectByUsername(name);
         return new Result(true,StatusCode.OK,"查询成功",tbKnowledges);
     }

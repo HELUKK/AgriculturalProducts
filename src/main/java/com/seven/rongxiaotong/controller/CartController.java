@@ -54,8 +54,8 @@ public class CartController {
         //该用户的购物车是否已有该商品
         List<ShoppingModel> shoppingCarts = tbShoppingcartService.selectByUserOrderId(id);
         if(shoppingCarts != null && shoppingCarts.size() > 0){
-            tbshoppingcart.setShoppingId(shoppingCarts.get(0).getShoppingId());
             tbshoppingcart.setCount(shoppingCarts.get(0).getCount() + 1);
+            tbshoppingcart.setShoppingId(shoppingCarts.get(0).getShoppingId());
             tbShoppingcartService.update(tbshoppingcart);
         }
         else {
