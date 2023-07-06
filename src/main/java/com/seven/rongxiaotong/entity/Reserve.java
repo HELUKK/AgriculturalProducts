@@ -295,7 +295,7 @@ public class Reserve implements Serializable {
     public String toString() {
         return "Reserve{" +
                 "id=" + id +
-                ", espertName='" + expertName + '\'' +
+                ", expertName='" + expertName + '\'' +
                 ", questioner='" + questioner + '\'' +
                 ", area='" + area + '\'' +
                 ", address='" + address + '\'' +
